@@ -4,15 +4,9 @@
 #   "outcome": <1 if team won, 0 if lost (int/bool)>
 #   "odds": <moneyline (int)> 
 class Game:
-	
-	def __init__(self):
-		self.team = None
-		self.date = None
-		self.outcome = None 
-		self.odds = None
 
-
-	def __init__(self, team, date, outcome, odds):
+	def __init__(self, team=None, 
+		date=None, outcome=None, odds=None):
 		self.team = team
 		self.date = date
 		self.outcome = outcome
