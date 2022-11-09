@@ -53,10 +53,22 @@ def scrapeGame(row):
 	print(teamString)
 	print(homeTeam)
 	print(awayTeam)
+	print("\n\n")
+
+	#set the winner/loser
+	winner= teams.find("span","bold").text
+	homeGame.outcome= int(winner==homeTeam)
+	awayGame.outcome= int(winner==awayTeam)
+	print("Winner: " + winner)
+	print("Home won?")
+	print(winner == homeTeam)
+	print(homeGame.outcome)
+	print("Away won?")
+	print(winner == awayTeam)
+	print(awayGame.outcome)
 	print("\n\n\n\n\n\n")
 
-	#set the winner
-
+	
 
 
 
