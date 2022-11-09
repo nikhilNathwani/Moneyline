@@ -1,13 +1,9 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from data import Game
 
 #Scrape results from 2021-2022 regular season
-#Output should be a list of dicts containing: 
-#	"team": <team name (str)>
-#   "date": <date of game (datetime)>
-#   "outcome": <1 if team won, 0 if lost (int/bool)>
-#   "odds": <moneyline (int)> 
 
 
 #Configure webdriver 
@@ -32,17 +28,35 @@ def getAllGameData(soup):
 	rows= table.find_all("tr", class_="deactivate")
 	for row in rows: 
 		print(row.prettify())
-		print("\n\n\n")
+		print("\n\n")
 		scrapeGame(row)
 	return rows
 
 
-#Given a table row (which corresponds to an NBA game), 
-#this function returns a list [a,b], where 'a' and 'b' 
-#are game dicts for the 2 teams that played in that game.
-#!Currently doesn't record the date of the game yet!
+# Given a table row (which corresponds to an NBA game), 
+# this function returns a list [homeGame,awayGame], where 
+# 'homeGame' and 'awayGame' are Game objects corresponding to
+# each game: one object from the perspective of the Home team,
+# and one from the perspective of the Away team).
+# !Currently doesn't record the date of the game yet!
 def scrapeGame(row):
-	teams= row.find("td", "table-participant")
+	#initialize the 2 Game objectes
+	homeGame= Game()
+	awayGame= Game()
+
+	#set the team names
+	teams= row.find("td", "table-participant").find('a')
+	teamString= teams.text
+	homeTeam,awayTeam= teamString.split(' - ')
+	homeGame.team= homeTeam
+	awayGame.team= awayTeam
+	print(teamString)
+	print(homeTeam)
+	print(awayTeam)
+	print("\n\n\n\n\n\n")
+
+	#set the winner
+
 
 
 
@@ -56,7 +70,7 @@ if __name__ == '__main__':
 	print("Made soup")
 
 	print("Getting table data...")
-	games= getGameData(soup)
+	games= getAllGameData(soup)
 	#print(games)
 
 	driver.quit()
