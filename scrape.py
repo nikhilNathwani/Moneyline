@@ -59,16 +59,24 @@ def scrapeGame(row):
 	winner= teams.find("span","bold").text
 	homeGame.outcome= int(winner==homeTeam)
 	awayGame.outcome= int(winner==awayTeam)
-	print("Winner: " + winner)
+	'''	print("Winner: " + winner)
 	print("Home won?")
 	print(winner == homeTeam)
 	print(homeGame.outcome)
 	print("Away won?")
 	print(winner == awayTeam)
 	print(awayGame.outcome)
-	print("\n\n\n\n\n\n")
+	print("\n\n")'''
 
-	
+	#set the odds
+	odds= row.find_all("td","odds-nowrp")
+	homeOdds,awayOdds= [odd.text for odd in odds]
+	homeGame.odds= homeOdds
+	awayGame.odds= awayOdds
+	print(odds)
+	print(homeGame.odds)
+	print(awayGame.odds)
+	print("\n\n\n\n\n\n")
 
 
 
