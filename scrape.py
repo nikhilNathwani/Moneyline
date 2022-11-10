@@ -51,8 +51,6 @@ def scrapeGame(row):
 	homeGame.team= homeTeam
 	awayGame.team= awayTeam
 	print(teamString)
-	print(homeTeam)
-	print(awayTeam)
 	print("\n\n")
 
 	#set the winner/loser
@@ -70,14 +68,20 @@ def scrapeGame(row):
 
 	#set the odds
 	odds= row.find_all("td","odds-nowrp")
-	homeOdds,awayOdds= [odd.text for odd in odds]
-	homeGame.odds= homeOdds
-	awayGame.odds= awayOdds
-	print(odds)
-	print(homeGame.odds)
-	print(awayGame.odds)
+	homeWinOdds,awayWinOdds= [odd.text for odd in odds]
+	homeGame.winOdds= homeWinOdds
+	awayGame.winOdds= awayWinOdds
+	homeGame.loseOdds= awayWinOdds 
+	awayGame.loseOdds= homeWinOdds
+
+	print("Home team:")
+	print(homeGame)
+	print('\n')
+	print("Away team:")
+	print(awayGame)
 	print("\n\n\n\n\n\n")
 
+	return [homeGame, awayGame]
 
 
 
