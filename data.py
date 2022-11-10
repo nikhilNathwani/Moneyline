@@ -13,5 +13,5 @@ class Game:
 		self.odds = odds
 
 
-	'''def __str__(self):
-		return f"{self.name}({self.age})"'''
+	def __str__(self):
+		return f"Team: {self.team}, Outcome: {self.outcome}, Odds: {self.odds}, Date: {self.date}"
