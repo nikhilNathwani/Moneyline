@@ -5,13 +5,13 @@
 #   "odds": <moneyline (int)> 
 class Game:
 
-	def __init__(self, team=None, date=None, 
+	def __init__(self, team=None, gameNumber=None, 
 		outcome=None, winOdds=None, loseOdds=None):
 		self.team = team
-		self.date = date
+		self.gameNumber = gameNumber
 		self.outcome = outcome
 		self.winOdds = winOdds
 		self.loseOdds = loseOdds
 
 	def __str__(self):
-		return f"Team: {self.team}, Outcome: {self.outcome}, WinOdds: {self.winOdds}, LoseOdds: {self.loseOdds}, Date: {self.date}"
+		return f"Team: {self.team}, Outcome: {self.outcome}, WinOdds: {self.winOdds}, LoseOdds: {self.loseOdds}, GameNumber: {self.gameNumber}"

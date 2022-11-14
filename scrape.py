@@ -22,10 +22,13 @@ from data import Game
 #3) Filter out non-regular-season games
 
 
+#Global variables
+teamGames= {}
+
 #Configure webdriver 
 print("Configuring webdriver...")
 options= Options()
-#options.headless= True  # hide GUI
+options.headless= True  # hide GUI
 driver= webdriver.Chrome(options=options)
 print("Configured webdriver...")
 #^consider efficiency improvements 
@@ -35,22 +38,18 @@ print("Configured webdriver...")
 def makeSoup(url):
 	#Get page contents
 	driver.get(url)
-	time.sleep(5)
 	html= driver.page_source
 	return BeautifulSoup(html,'lxml')
 
 
-#Leaving date aside for now
 def getGameDataFromPage(soup):
 	table= soup.find("table", "table-main")
-	rows= table.find_all_next("tr", {"class":["deactivate", 'nob-border']})
+	rows= table.find_all_next("tr", class_="deactivate")
 	date= None
 	for row in rows: 
-		if(isDateRow(row)):
-			date= parseDate(row)
-		else: 
-			scrapeGame(row, date)
+		scrapeGame(row, date)
 	return rows
+
 
 def isDateRow(row):
 	return 'nob-border' in row.get("class")
@@ -64,6 +63,7 @@ def parseDate(row):
 	day= int(day)
 	return date(year,month,day) 
 
+
 # Given a table row (which corresponds to an NBA game), 
 # this function returns a list [homeGame,awayGame], where 
 # 'homeGame' and 'awayGame' are Game objects corresponding to
@@ -71,13 +71,13 @@ def parseDate(row):
 # and one from the perspective of the Away team).
 # !Currently doesn't record the date of the game yet!
 def scrapeGame(row, date):
+	
+	#reference the global teamGames variable
+	global teamGames
+
 	#initialize the 2 Game objectes
 	homeGame= Game()
 	awayGame= Game()
-
-	#set the game date
-	homeGame.date= date
-	awayGame.date= date
 
 	#set the team names
 	teams= row.find("td", "table-participant").find('a')
@@ -98,6 +98,12 @@ def scrapeGame(row, date):
 	awayGame.winOdds= awayWinOdds
 	homeGame.loseOdds= awayWinOdds 
 	awayGame.loseOdds= homeWinOdds
+
+	#set the game date (i.e. game number from 1 to [num games])
+	teamGames[homeTeam]= teamGames.get(homeTeam, 0) + 1
+	teamGames[awayTeam]= teamGames.get(awayTeam, 0) + 1
+	homeGame.gameNumber= teamGames[homeTeam]
+	awayGame.gameNumber= teamGames[awayTeam]
 	
 	print("Home game:")
 	print(homeGame)
@@ -113,17 +119,13 @@ def scrapeGame(row, date):
 
 if __name__ == '__main__':
 	
-	url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/2/"
+	url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/3/"
 
 	print("Making soup...")
 	soup= makeSoup(url)
 	print("Made soup")
 
 	print("Getting table data...")
-	#getGameDataFromPage(soup)
-	dates= soup.find_all("tr",class_="nob-border")
-	print("Dates: ", dates)
-	for date in dates:
-		print('\n',date,'\n',date.find('span').text,'\n\n')
+	getGameDataFromPage(soup)
 
 	driver.quit()
