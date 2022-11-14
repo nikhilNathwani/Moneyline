@@ -68,6 +68,7 @@ def getGameDataFromPage(soup):
 		else:
 			if regularSeason:
 				gameObjects+= scrapeGame(row)
+	#for game in gameObjects: print("GAME OBJECT: ", game, '\n')
 	return gameObjects
 
 
@@ -147,7 +148,7 @@ def parseDate(row):
 
 if __name__ == '__main__':
 	
-	url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/3/"
+	url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/2/"
 
 	print("Making soup...")
 	soup= makeSoup(url)
