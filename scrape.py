@@ -27,8 +27,6 @@ def getAllGameData(soup):
 	table= soup.find("table", "table-main")
 	rows= table.find_all("tr", class_="deactivate")
 	for row in rows: 
-		print(row.prettify())
-		print("\n\n")
 		scrapeGame(row)
 	return rows
 
@@ -50,21 +48,11 @@ def scrapeGame(row):
 	homeTeam,awayTeam= teamString.split(' - ')
 	homeGame.team= homeTeam
 	awayGame.team= awayTeam
-	print(teamString)
-	print("\n\n")
 
 	#set the winner/loser
 	winner= teams.find("span","bold").text
 	homeGame.outcome= int(winner==homeTeam)
 	awayGame.outcome= int(winner==awayTeam)
-	'''	print("Winner: " + winner)
-	print("Home won?")
-	print(winner == homeTeam)
-	print(homeGame.outcome)
-	print("Away won?")
-	print(winner == awayTeam)
-	print(awayGame.outcome)
-	print("\n\n")'''
 
 	#set the odds
 	odds= row.find_all("td","odds-nowrp")
@@ -74,15 +62,13 @@ def scrapeGame(row):
 	homeGame.loseOdds= awayWinOdds 
 	awayGame.loseOdds= homeWinOdds
 
-	print("Home team:")
+	print("Home game:")
 	print(homeGame)
-	print('\n')
-	print("Away team:")
+	print("\nAway game:")
 	print(awayGame)
-	print("\n\n\n\n\n\n")
+	print("\n\n\n\n")
 
 	return [homeGame, awayGame]
-
 
 
 

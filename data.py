@@ -13,7 +13,5 @@ class Game:
 		self.winOdds = winOdds
 		self.loseOdds = loseOdds
 
-
-
 	def __str__(self):
 		return f"Team: {self.team}, Outcome: {self.outcome}, WinOdds: {self.winOdds}, LoseOdds: {self.loseOdds}, Date: {self.date}"
