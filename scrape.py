@@ -41,13 +41,21 @@ def makeSoup(url):
 	html= driver.page_source
 	return BeautifulSoup(html,'lxml')
 
+def scrapeSeason(urlBase,startYear):
+	urlWithSeason= urlBase+str(startYear)+"-"+str(startYear+1)+"/results/#/page/" 
+	traversePages(urlWithSeason)
+
+def traversePages(urlBase):
+	pageNum= 1
+	url= urlBase+str(pageNum)+"/"
+	"https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/3/"
+	pass
 
 def getGameDataFromPage(soup):
 	table= soup.find("table", "table-main")
 	rows= table.find_all_next("tr", class_="deactivate")
-	date= None
 	for row in rows: 
-		scrapeGame(row, date)
+		scrapeGame(row)
 	return rows
 
 
@@ -58,7 +66,7 @@ def getGameDataFromPage(soup):
 # each game: one object from the perspective of the Home team,
 # and one from the perspective of the Away team).
 # !Currently doesn't record the date of the game yet!
-def scrapeGame(row, date):
+def scrapeGame(row):
 
 	#reference the global teamGames variable
 	global teamGames
@@ -103,7 +111,8 @@ def scrapeGame(row, date):
 
 
 
-
+def isPlayoff(row):
+	pass
 
 if __name__ == '__main__':
 	
