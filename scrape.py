@@ -53,12 +53,37 @@ def traversePages(urlBase):
 
 def getGameDataFromPage(soup):
 	table= soup.find("table", "table-main")
-	rows= table.find_all_next("tr", class_="deactivate")
-	for row in rows: 
-		scrapeGame(row)
-	return rows
+	rows= table.find_all_next("tr", {"class":["deactivate", 'nob-border']})
+	gameObjects= []
+	regularSeason= 0
+	#look through header rows and game rows:
+	#1) if we're under a playoff header, skip those games
+	#2) while we're under regular season headers, add those games to gameObjects list
+	#3) once we hit a preseason header, stop scraping 
+	for row in rows:
+		if isHeaderRow(row):
+			regularSeason= isRegularSeason(row)
+			if isPreSeason(row):
+				break
+		else:
+			if regularSeason:
+				gameObjects+= scrapeGame(row)
+	return gameObjects
 
 
+def isHeaderRow(row):
+	return 'nob-border' in row.get("class")
+
+def isPlayoffs(row):
+	header= row.find('th')
+	return header.text.split(' - ')[-1] == "Play Offs"
+
+def isPreSeason(row):
+	header= row.find('th')
+	return header.text.split(' - ')[-1] == "Pre-season"
+
+def isRegularSeason(row):
+	return not isPlayoffs(row) and not isPreSeason(row)
 
 # Given a table row (which corresponds to an NBA game), 
 # this function returns a list [homeGame,awayGame], where 
@@ -111,8 +136,14 @@ def scrapeGame(row):
 
 
 
-def isPlayoff(row):
-	pass
+def parseDate(row):
+	dateObject= row.find("span", class_="datet")
+	day,month,year= dateObject.text.split(" ")
+	#convert month abbreviation to number using 'calendar' library
+	year= int(year)
+	month= int(list(calendar.month_abbr).index(month))
+	day= int(day)
+	return date(year,month,day) 
 
 if __name__ == '__main__':
 	
