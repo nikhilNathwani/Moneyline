@@ -5,6 +5,10 @@ from data import Game
 
 #Scrape results from 2021-2022 regular season
 
+#NEXT STEPS:
+#1) Add Date info to each Game object
+#2) Traverse each page of each season
+
 
 #Configure webdriver 
 print("Configuring webdriver...")
@@ -12,7 +16,8 @@ options= Options()
 options.headless= True  # hide GUI
 driver= webdriver.Chrome(options=options)
 print("Configured webdriver...")
-#^consider efficiency improvements e.g. add options for not loading images     
+#^consider efficiency improvements 
+#e.g. add options for not loading images     
 
 
 def makeSoup(url):
@@ -75,8 +80,11 @@ def scrapeGame(row):
 
 
 if __name__ == '__main__':
+	
+	url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/3/"
+
 	print("Making soup...")
-	soup= makeSoup("https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/3/")
+	soup= makeSoup(url)
 	print("Made soup")
 
 	print("Getting table data...")
