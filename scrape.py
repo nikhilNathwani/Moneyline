@@ -51,18 +51,6 @@ def getGameDataFromPage(soup):
 	return rows
 
 
-def isDateRow(row):
-	return 'nob-border' in row.get("class")
-
-def parseDate(row):
-	dateObject= row.find("span", class_="datet")
-	day,month,year= dateObject.text.split(" ")
-	#convert month abbreviation to number using 'calendar' library
-	year= int(year)
-	month= int(list(calendar.month_abbr).index(month))
-	day= int(day)
-	return date(year,month,day) 
-
 
 # Given a table row (which corresponds to an NBA game), 
 # this function returns a list [homeGame,awayGame], where 
@@ -71,7 +59,7 @@ def parseDate(row):
 # and one from the perspective of the Away team).
 # !Currently doesn't record the date of the game yet!
 def scrapeGame(row, date):
-	
+
 	#reference the global teamGames variable
 	global teamGames
 
