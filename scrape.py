@@ -137,15 +137,6 @@ def scrapeGame(row):
 
 
 
-def parseDate(row):
-	dateObject= row.find("span", class_="datet")
-	day,month,year= dateObject.text.split(" ")
-	#convert month abbreviation to number using 'calendar' library
-	year= int(year)
-	month= int(list(calendar.month_abbr).index(month))
-	day= int(day)
-	return date(year,month,day) 
-
 if __name__ == '__main__':
 	
 	url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/2/"
