@@ -103,8 +103,12 @@ def isPreSeason(row):
 	header= row.find('th')
 	return header.text.split(' - ')[-1] == "Pre-season"
 
+def isAllStarGame(row):
+	header= row.find('th')
+	return header.text.split(' - ')[-1] == "All Stars"
+
 def isRegularSeason(row):
-	return not isPlayoffs(row) and not isPreSeason(row)
+	return not isPlayoffs(row) and not isPreSeason(row) and not isAllStarGame(row)
 
 # Given a table row (which corresponds to an NBA game), 
 # this function returns a list [homeGame,awayGame], where 
