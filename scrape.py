@@ -28,7 +28,7 @@ teamGames= {}
 #Configure webdriver 
 print("Configuring webdriver...")
 options= Options()
-options.headless= True  # hide GUI
+#options.headless= True  # hide GUI
 driver= webdriver.Chrome(options=options)
 print("Configured webdriver...")
 #^consider efficiency improvements 
@@ -38,38 +38,58 @@ print("Configured webdriver...")
 def makeSoup(url):
 	#Get page contents
 	driver.get(url)
+	time.sleep(3)
 	html= driver.page_source
+	time.sleep(3)
 	return BeautifulSoup(html,'lxml')
 
-def scrapeSeason(urlBase,startYear):
-	urlWithSeason= urlBase+str(startYear)+"-"+str(startYear+1)+"/results/#/page/" 
-	traversePages(urlWithSeason)
 
-def traversePages(urlBase):
+def scrapeSeason(startYear):
+	urlBase= "https://www.oddsportal.com/basketball/usa/nba-"
+	urlBase+= str(startYear)+"-"+str(startYear+1)+"/results/#/page/"
 	pageNum= 1
-	url= urlBase+str(pageNum)+"/"
-	"https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/3/"
-	pass
+	doneTraversing= 0
+	allGameObjects= []
+	while not doneTraversing:
+		url= urlBase+str(pageNum)+"/"
+		print("SCRAPING PAGE ", pageNum, '\n\n\n\n\n\n')
+		isFinalPage,gameObjectsFromPage= getGameDataFromPage(url)
+		allGameObjects+= gameObjectsFromPage
+		pageNum+= 1
+		doneTraversing= isFinalPage
+	return allGameObjects
 
-def getGameDataFromPage(soup):
+
+#look through header rows and game rows:
+#1) if we're under a playoff header, skip those games
+#2) while we're under regular season headers, add those games to gameObjects list
+#3) once we hit a preseason header, stop scraping
+#Returns tuple (a,b), where:
+# - 'a' is a bool that is 1 if this is the final page to scrape, 0 if we need to keep going
+# - 'b' is the gameObject list from the given page
+def getGameDataFromPage(url):
+
+	print("Making soup...")
+	soup= makeSoup(url)
+	print("Made soup")
+
 	table= soup.find("table", "table-main")
 	rows= table.find_all_next("tr", {"class":["deactivate", 'nob-border']})
 	gameObjects= []
 	regularSeason= 0
-	#look through header rows and game rows:
-	#1) if we're under a playoff header, skip those games
-	#2) while we're under regular season headers, add those games to gameObjects list
-	#3) once we hit a preseason header, stop scraping 
+	finalPage=0 
 	for row in rows:
 		if isHeaderRow(row):
 			regularSeason= isRegularSeason(row)
 			if isPreSeason(row):
+				print('\n\n\n\n\n\n', "FOUND THE PRESEASON",'\n\n\n\n\n\n')
+				finalPage= 1
 				break
 		else:
 			if regularSeason:
 				gameObjects+= scrapeGame(row)
 	#for game in gameObjects: print("GAME OBJECT: ", game, '\n')
-	return gameObjects
+	return (finalPage, gameObjects)
 
 
 def isHeaderRow(row):
@@ -139,13 +159,14 @@ def scrapeGame(row):
 
 if __name__ == '__main__':
 	
-	url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/2/"
+	#url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/2/"
 
-	print("Making soup...")
-	soup= makeSoup(url)
-	print("Made soup")
+	gameObjects= scrapeSeason(2021)
+	#for game in gameObjects: print('\n',game,'\n\n')
+	#getGameDataFromPage(soup)
 
-	print("Getting table data...")
-	getGameDataFromPage(soup)
+	print('\n\n\n\n\n\n', "FINAL RESULTS: ", '\n\n\n\n')
+
+	for i,game in enumerate(gameObjects): print(i, "  ", game, "\n\n")
 
 	driver.quit()
