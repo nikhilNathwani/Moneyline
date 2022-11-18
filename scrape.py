@@ -27,11 +27,9 @@ teamGames= {}
 currentSeasonStartYear= 0
 
 #Configure webdriver 
-print("Configuring webdriver...")
 options= Options()
 #options.headless= True  # hide GUI
 driver= webdriver.Chrome(options=options)
-print("Configured webdriver...")
 #^consider efficiency improvements 
 #e.g. add options for not loading images     
 
@@ -53,12 +51,25 @@ def scrapeSeasons(startYear,endYear):
 	while y < endYear:
 		currentSeasonStartYear= y
 		gameObjectsFromSeason= scrapeSeason(y)
+		fixGameNumbers(gameObjectsFromSeason)
+
 		allGameObjects+= gameObjectsFromSeason
 		teamGames= {} #so that gameNum counts reset before scraping the next season
 		y+= 1
 	return allGameObjects
 
+
+#games are scraped in reverse chronological order, while game numbers start from 1
+#this means that all the game numbers are reversed
+#they should instead be set to [total num games] minus [game number when scraped]
+#I need to do this after the fact, because I don't know up front how many total games will be played
+def fixGameNumbers(gameObjects):
+	for game in gameObjects:
+		game.gameNumber= teamGames[game.team] - game.gameNumber + 1
+
+
 def scrapeSeason(startYear):
+	print("STARTING season",currentSeasonStartYear,"-",(currentSeasonStartYear+1))
 	urlBase= "https://www.oddsportal.com/basketball/usa/nba-"
 	urlBase+= str(startYear)+"-"+str(startYear+1)+"/results/#/page/"
 	pageNum= 1
@@ -66,7 +77,7 @@ def scrapeSeason(startYear):
 	allGameObjects= []
 	while not doneTraversing:
 		url= urlBase+str(pageNum)+"/"
-		print("SCRAPING PAGE ", pageNum, '\n\n\n\n\n\n')
+		print("SCRAPING PAGE", pageNum)
 		isFinalPage,gameObjectsFromPage= getGameDataFromPage(url)
 		allGameObjects+= gameObjectsFromPage
 		pageNum+= 1
@@ -94,7 +105,7 @@ def getGameDataFromPage(url):
 		if isHeaderRow(row):
 			regularSeason= isRegularSeason(row)
 			if isPreSeason(row):
-				print('\n\n\n\n\n\n', "FOUND THE PRESEASON",'\n\n\n\n\n\n')
+				print("FINISHED season",currentSeasonStartYear,"-",(currentSeasonStartYear+1),'\n\n\n\n\n\n')
 				finalPage= 1
 				break
 		else:
@@ -166,12 +177,6 @@ def scrapeGame(row):
 	teamGames[awayTeam]= teamGames.get(awayTeam, 0) + 1
 	homeGame.gameNumber= teamGames[homeTeam]
 	awayGame.gameNumber= teamGames[awayTeam]
-	
-	print("Home game:")
-	print(homeGame)
-	print("\nAway game:")
-	print(awayGame)
-	print("\n\n\n\n")
 	
 	return [homeGame, awayGame]
 
