@@ -1,5 +1,16 @@
-#function that aid in the scraping of oddsportal.com
-#refactored into a separate file to reduce overhead in scrape.py
+#Functions that aid in the scraping of oddsportal.com
+
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import time
+
+#Configure webdriver 
+options= Options()
+#options.headless= True  # hide GUI
+driver= webdriver.Chrome(options=options)
+#^consider efficiency improvements 
+#e.g. add options for not loading images     
 
 def makeSoup(url):
 	#Get page contents
@@ -8,7 +19,10 @@ def makeSoup(url):
 	html= driver.page_source
 	time.sleep(3)
 	return BeautifulSoup(html,'lxml')
-	
+
+def endScrape():
+	driver.quit()
+
 def isHeaderRow(row):
 	return 'nob-border' in row.get("class")
 
