@@ -24,6 +24,7 @@ from data import Game
 
 #Global variables
 teamGames= {}
+currentSeasonStartYear= 0
 
 #Configure webdriver 
 print("Configuring webdriver...")
@@ -43,6 +44,19 @@ def makeSoup(url):
 	time.sleep(3)
 	return BeautifulSoup(html,'lxml')
 
+#scrapes NBA seasons from [startYear]-[startYear+1] to [endYear-1]-[endYear]
+def scrapeSeasons(startYear,endYear):
+	global currentSeasonStartYear
+	global teamGames
+	allGameObjects= []
+	y= startYear
+	while y < endYear:
+		currentSeasonStartYear= y
+		gameObjectsFromSeason= scrapeSeason(y)
+		allGameObjects+= gameObjectsFromSeason
+		teamGames= {} #so that gameNum counts reset before scraping the next season
+		y+= 1
+	return allGameObjects
 
 def scrapeSeason(startYear):
 	urlBase= "https://www.oddsportal.com/basketball/usa/nba-"
@@ -143,6 +157,10 @@ def scrapeGame(row):
 	homeGame.loseOdds= awayWinOdds 
 	awayGame.loseOdds= homeWinOdds
 
+	#set the season start year 
+	homeGame.seasonStartYear= currentSeasonStartYear
+	awayGame.seasonStartYear= currentSeasonStartYear
+
 	#set the game date (i.e. game number from 1 to [num games])
 	teamGames[homeTeam]= teamGames.get(homeTeam, 0) + 1
 	teamGames[awayTeam]= teamGames.get(awayTeam, 0) + 1
@@ -163,7 +181,7 @@ if __name__ == '__main__':
 	
 	#url= "https://www.oddsportal.com/basketball/usa/nba-2021-2022/results/#/page/2/"
 
-	gameObjects= scrapeSeason(2021)
+	gameObjects= scrapeSeasons(2020,2022)
 	#for game in gameObjects: print('\n',game,'\n\n')
 	#getGameDataFromPage(soup)
 
