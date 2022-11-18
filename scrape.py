@@ -68,12 +68,10 @@ def scrapeSeason(startYear):
 # - 'a' is a bool that is 1 if this is the final page to scrape, 0 if we need to keep going
 # - 'b' is the gameObject list from the given page
 def getGameDataFromPage(url):
-
-	print("Making soup...")
 	soup= makeSoup(url)
-	print("Made soup")
-
 	table= soup.find("table", "table-main")
+	#game rows have class "deactivate", and header rows have class "nob-border"
+	#header rows indicate whether the next games are playoffs/preseason/etc.
 	rows= table.find_all_next("tr", {"class":["deactivate", 'nob-border']})
 	gameObjects= []
 	regularSeason= 0
