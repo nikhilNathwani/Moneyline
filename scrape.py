@@ -1,7 +1,7 @@
 from scrapeUtil import *
-from data import Game
+from game import Game
 
-#Scrape game results and odds from given NBA regular seasons
+#Scrape game results and odds from NBA regular seasons
 
 #Notes:
 #1) oddsportal.com takes an average moneyline across many bookers

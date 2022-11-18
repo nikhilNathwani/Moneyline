@@ -1,10 +1,11 @@
 #Game object must contain: 
 #	"team": <team name (str)>
+#	"seasonStartYear": <calendar year in which the season started (int)>
+#	"gameNumber": <num of game within the season i.e. 1st game is 1, 2nd is 2, etc. (int)>
 #   "date": <date of game (datetime)>
 #   "outcome": <1 if team won, 0 if lost (int/bool)>
 #   "odds": <moneyline (int)> 
 class Game:
-
 	def __init__(self, team=None, seasonStartYear= None, gameNumber=None, 
 		outcome=None, winOdds=None, loseOdds=None):
 		self.team = team
