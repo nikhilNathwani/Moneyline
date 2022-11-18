@@ -44,7 +44,7 @@ def scrapeSeason(startYear):
 	while not doneTraversing:
 		url= urlBase+str(pageNum)+"/"
 		print("SCRAPING PAGE", pageNum)
-		isFinalPage,gameObjectsFromPage= scrapeGamesFromPage(url)
+		isFinalPage,gameObjectsFromPage= scrapePage(url)
 		allGameObjects+= gameObjectsFromPage
 		pageNum+= 1
 		doneTraversing= isFinalPage
@@ -54,7 +54,7 @@ def scrapeSeason(startYear):
 #Returns tuple (finalPage <bool>, gameObjects <list>), where:
 # - 'finalPage' is 1 if this was the last page to scrape for the given season
 # - 'gameObjects' is the list of all Game objects scraped from the given page
-def scrapeGamesFromPage(url):
+def scrapePage(url):
 	soup= makeSoup(url)
 	table= soup.find("table", "table-main")
 	#Game rows have class "deactivate". Header rows have class "nob-border".
@@ -116,13 +116,13 @@ def scrapeGame(row):
 	awayGame.seasonStartYear= currentSeasonStartYear
 
 	#set the game date (i.e. game number from 1 to [num games])
-	#note that games are scraped in reverse chronological order
-	#so game 82 actually gets a gameNumber of 1. Call function
-	#fixGameNumbers() to fix this, after scraping the full season
 	teamGames[homeTeam]= teamGames.get(homeTeam, 0) + 1
 	teamGames[awayTeam]= teamGames.get(awayTeam, 0) + 1
 	homeGame.gameNumber= teamGames[homeTeam]
 	awayGame.gameNumber= teamGames[awayTeam]
+	#Note: games are scraped in reverse chronological order, e.g. game 
+	#82 actually gets a gameNumber of 1, and vice versa. Call function
+	#fixGameNumbers() to fix this, after scraping the full season.
 	
 	return [homeGame, awayGame]
 
