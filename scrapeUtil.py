@@ -12,14 +12,14 @@ driver= webdriver.Chrome(options=options)
 #^consider efficiency improvements 
 #e.g. add options for not loading images     
 
-waitTime= 2 #seconds
+waitTime= 3 #seconds
 
 def makeSoup(url):
 	#Get page contents
 	driver.get(url)
 	time.sleep(waitTime)
 	html= driver.page_source
-	#time.sleep(waitTime)
+	time.sleep(waitTime)
 	return BeautifulSoup(html,'lxml')
 
 def endScrape():
