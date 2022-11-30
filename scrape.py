@@ -73,7 +73,8 @@ def scrapePage(url):
 		if isHeaderRow(row):
 			regularSeason= isRegularSeason(row)
 			if isPreSeason(row):
-				if not is2020(row) and currentSeasonStartYear!=2019:
+				#2019-20 had a 2nd 'pre-season' for the bubble which we ignore here
+				if not (is2020(row) and currentSeasonStartYear==2019):
 					print("FINISHED season",currentSeasonStartYear,"-",(currentSeasonStartYear+1),'\n\n\n\n\n\n')
 					finalPage= 1
 					break
@@ -146,6 +147,6 @@ def fixGameNumbers(gameObjects):
 
 
 if __name__ == '__main__':
-	gameObjects= scrapeSeasons(2016,2022)
+	gameObjects= scrapeSeasons(2019,2021)
 	endScrape()
 	con.close()
