@@ -73,7 +73,7 @@ def scrapePage(url):
 		if isHeaderRow(row):
 			regularSeason= isRegularSeason(row)
 			if isPreSeason(row):
-				if not is2020(row): #see comment in scrapeUtil for rationale
+				if not is2020(row) and currentSeasonStartYear!=2019:
 					print("FINISHED season",currentSeasonStartYear,"-",(currentSeasonStartYear+1),'\n\n\n\n\n\n')
 					finalPage= 1
 					break
@@ -104,9 +104,6 @@ def scrapeGame(row):
 	awayGame.team= awayTeam
 
 	#set the winner/loser
-	#the 'try' catches an isolated issue in 2020 where some games got 
-	#cancelled at the start of covid, and there was no winner or loser. 
-	#In this case, return [] so that nothing gets added to gameObjects
 	try:
 		winner= teams.find("span","bold").text
 	except (AttributeError):
@@ -114,6 +111,9 @@ def scrapeGame(row):
 	else:
 		homeGame.outcome= int(winner==homeTeam)
 		awayGame.outcome= int(winner==awayTeam)
+	#^the 'try' catches an isolated issue in 2020 where some games got 
+	#cancelled at the start of covid, and there was no winner or loser. 
+	#In this case, return [] so that nothing gets added to gameObjects
 
 	#set the odds
 	odds= row.find_all("td","odds-nowrp")
@@ -146,6 +146,6 @@ def fixGameNumbers(gameObjects):
 
 
 if __name__ == '__main__':
-	gameObjects= scrapeSeasons(2019,2020)
+	gameObjects= scrapeSeasons(2016,2022)
 	endScrape()
 	con.close()
