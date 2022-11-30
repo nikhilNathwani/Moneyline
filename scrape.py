@@ -1,5 +1,6 @@
 from scrapeUtil import *
 from game import Game
+from database import *
 
 #Scrape game results and odds from NBA regular seasons
 
@@ -17,6 +18,7 @@ teamGames= {}
 
 #Scrapes NBA seasons from [startYear]-[startYear+1] to [endYear-1]-[endYear]
 #(one season at a time, since they're at different URLs)
+#Then adds the resulting Game objects to the 'games' table in moneyline.db
 def scrapeSeasons(startYear,endYear):
 	global currentSeasonStartYear
 	global teamGames
@@ -29,6 +31,8 @@ def scrapeSeasons(startYear,endYear):
 		allGameObjects+= gameObjectsFromSeason
 		teamGames= {} #so that gameNum counts reset before scraping the next season
 		y+= 1
+	#Add all Game objects to 'games' table of moneyline.db
+	addGamesToGamesDB(allGameObjects)
 	return allGameObjects
 
 
@@ -134,8 +138,6 @@ def fixGameNumbers(gameObjects):
 
 
 if __name__ == '__main__':
-	gameObjects= scrapeSeasons(2020,2022)
-	print('\n\n\n\n\n\n', "FINAL RESULTS: ", '\n\n\n\n')
-	for i,game in enumerate(gameObjects): 
-		print(i, "  ", game, "\n\n")
+	gameObjects= scrapeSeasons(2016,2022)
 	endScrape()
+	con.close()

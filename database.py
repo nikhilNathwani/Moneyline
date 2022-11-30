@@ -1,5 +1,5 @@
 import sqlite3
-from Game import game
+from game import Game
 
 con = sqlite3.connect("moneyline.db")
 cur = con.cursor()
@@ -17,9 +17,17 @@ def listifyGame(game):
 def listifyGames(gameList):
 	result=[]
 	for game in gameList:
-		result += listifyGame(game)
+		result.append(listifyGame(game))
 	return result
 
+def addGamesToGamesDB(gameObjectList):
+	print("\n\n\nADDING games to database")
+	gamesList= listifyGames(gameObjectList)
+	cur.executemany("INSERT INTO games VALUES(?,?,?,?,?,?)", gamesList)
+	con.commit()
+	print("DONE ADDING games to database")
+
+
 if __name__ == '__main__':
-	#createGamesTable()
+	createGamesTable()
 	con.close()
