@@ -36,6 +36,12 @@ def isPreSeason(row):
 	header= row.find('th')
 	return header.text.split(' - ')[-1] == "Pre-season"
 
+#2020 season had a mid-season "pre-season" before the bubble began
+#need to ignore these "pre-season" but only when the year is 2020
+def is2020(row):
+	header= row.find('th')
+	return header.text.split(' - ')[0].split(' ')[-1] == "2020"	
+
 def isAllStarGame(row):
 	header= row.find('th')
 	return header.text.split(' - ')[-1] == "All Stars"
