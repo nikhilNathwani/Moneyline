@@ -147,6 +147,6 @@ def fixGameNumbers(gameObjects):
 
 
 if __name__ == '__main__':
-	gameObjects= scrapeSeasons(2019,2021)
+	gameObjects= scrapeSeasons(2016,2022)
 	endScrape()
 	con.close()
