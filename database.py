@@ -1,3 +1,9 @@
+#- If I need to drop the 'games' table, I can run this 
+#  file to recreate it (see '__main__')
+#- But otherwise, this file is just used to provide helper 
+#  functions for scrape.py, so that I can insert scraped 
+#  game data into the 'games' table of moneyline.db
+
 import sqlite3
 from game import Game
 
