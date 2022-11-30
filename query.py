@@ -11,20 +11,28 @@ from database import *
 #game.loseOdds
 
 
-#Calculate # games played and won per team per season
+#Calculate # games played per team per season
 def verifyGameCounts():
 	#First just calculating # of wins
 	res= cur.execute("""
-		
-		SELECT team, seasonStartYear, SUM(outcome) 
+		SELECT team, seasonStartYear, MAX(gameNumber) AS gamesPlayed
 		FROM games
-		WHERE seasonStartYear != 2019
 		GROUP BY seasonStartYear, team 
-		ORDER BY team ASC, seasonStartYear DESC
-
+		ORDER BY seasonStartYear DESC, team ASC;
 		""")
 	return res.fetchall()
 
+
+#Calculate # games won per team per season
+def verifyWinCounts():
+	#First just calculating # of wins
+	res= cur.execute("""
+		SELECT team, seasonStartYear, SUM(outcome) AS wins
+		FROM games
+		GROUP BY seasonStartYear, team 
+		ORDER BY team ASC, seasonStartYear DESC;
+		""")
+	return res.fetchall()
 
 
 if __name__ == '__main__':
