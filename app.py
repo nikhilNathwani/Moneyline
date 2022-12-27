@@ -17,39 +17,47 @@ def index():
 
 
 @app.route('/query')
-def query_users():
+def query_games():
     # Connect to the database
-    conn = sqlite3.connect('moneyline.db')
+    conn = sqlite3.connect('data/moneyline.db')
     cursor = conn.cursor()
 
     # Get the filters from the query string
-    betAmount_filter = request.args.get('betAmount')
+    betAmount_filter = request.args.get('bet',type=int)
     team_filter = request.args.get('team')
-    gameOutcome_filter = request.args.get('gameOutcome')
-    seasonStartYear_filter= request.args.get('seasonStartYear')
+    gameOutcome_filter = request.args.get('outcome',type=int)
+    seasonStartYear_filter= request.args.get('seasonStart',type=int)
+    print("Bet:", betAmount_filter)
+    print("Team:", team_filter)
+    print("Outcome:", gameOutcome_filter)
+    print("Season Start:", seasonStartYear_filter)
 
     # Build the SELECT query using the filters
-    query = 'SELECT * FROM users'
+    query = 'SELECT * FROM games'
     where_clauses = []
-    if name_filter:
-        where_clauses.append(f'name = "{name_filter}"')
-    if email_filter:
-        where_clauses.append(f'email = "{email_filter}"')
+    if team_filter:
+        where_clauses.append(f'team = "{team_filter}"')
+    if gameOutcome_filter:
+        where_clauses.append(f'outcome = {gameOutcome_filter}')
+    if seasonStartYear_filter:
+        where_clauses.append(f'seasonStartYear = {seasonStartYear_filter}')
     if where_clauses:
         query += ' WHERE ' + ' AND '.join(where_clauses)
+
+    print("Query:", query)
 
     # Execute the SELECT query
     cursor.execute(query)
 
     # Fetch the results of the query
-    users = cursor.fetchall()
+    games = cursor.fetchall()
 
     # Close the cursor and connection
     cursor.close()
     conn.close()
 
     # Return the results as JSON
-    return jsonify(users)
+    return jsonify(games)
 
 
 if __name__ == '__main__':
