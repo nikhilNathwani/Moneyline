@@ -1,0 +1,21 @@
+<!-- CSS for the UI filters and results -->
+
+label {
+  display: inline-block;
+  width: 80px;
+}
+
+input[type="text"] {
+  width: 200px;
+}
+
+#results-container {
+  border: 1px solid black;
+  width: 300px;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+#results-container > div {
+  padding: 5px;
+}

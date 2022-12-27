@@ -6,9 +6,9 @@ from database import *
 #team
 #seasonStartYear
 #gameNumber
-#game.outcome
-#game.winOdds
-#game.loseOdds
+#outcome
+#winOdds
+#loseOdds
 
 
 #Calculate # games played per team per season
