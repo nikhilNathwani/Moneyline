@@ -19,19 +19,19 @@ function queryGames() {
 
   // Make a request to the /query route, passing the filters as parameters
   fetch(`/query?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`)
-    .then(response => response.json())
+    .then(response => response.json())  
     .then(games => {
 
-      console.log(games);
+        console.log(games);
 
-      // Clear the results container
-      resultsContainer.innerHTML = '';
+        // Clear the results container
+        resultsContainer.innerHTML = '';
 
-      // Loop through the games and create a new element for each one
-      games.forEach(game => {
-        const gameElement = document.createElement('div');
-        gameElement.innerHTML = `${game[0]} - ${game[1]} - ${game[2]} - ${game[3]} - ${game[4]} - ${game[5]}`;
-        resultsContainer.appendChild(gameElement);
-      });
+        // Loop through the games and create a new element for each one
+        games.forEach(game => {
+          const gameElement = document.createElement('div');
+          gameElement.innerHTML = `${game[0]} - ${game[1]} - ${game[2]} - ${game[3]} - ${game[4]} - ${game[5]}`;
+          resultsContainer.appendChild(gameElement);
+        });
     });
 }
