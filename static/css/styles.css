@@ -5,15 +5,24 @@ html, body {
 
 #container {
   display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 #sidebar {
+  height: 100%;
   width: 33%; /* set the width of the sidebar */
-  background-color: #eee; /* add a background color for illustration */
+  padding: 20px;
+  background-color: rgb(227, 224, 213); /* add a background color for illustration */
+}
+
+#sidebar > div.input {
+  display: block;
 }
 
 #main-content {
   flex: 1; /* take up the remaining space */
+  height: 100%;
   background-color: #fff; /* add a background color for illustration */
 }
 
