@@ -12,12 +12,25 @@ html, body {
 #sidebar {
   height: 100%;
   width: 33%; /* set the width of the sidebar */
-  padding: 20px;
+  padding-top: 20px;
   background-color: rgb(227, 224, 213); /* add a background color for illustration */
 }
 
-#sidebar > div.input {
-  display: block;
+#sidebar > #input-area {
+  width: 90%;
+  margin: auto;
+  /* border: 1px solid red; */
+}
+
+#sidebar > #input-area > div.input {
+  /* display: block; */
+  margin-bottom: 20px;
+  /* border: 1px solid red; */
+}
+
+#sidebar > #input-area > div.input > select {
+  /* display: block; */
+  float: right;
 }
 
 #main-content {
