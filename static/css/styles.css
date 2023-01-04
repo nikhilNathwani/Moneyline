@@ -37,6 +37,9 @@ html, body {
 
 button {
   font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  margin-top: 20px;
+
 }
 
 #main-content {
