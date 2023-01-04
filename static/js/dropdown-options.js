@@ -1,5 +1,5 @@
 
-const outcomes = ["Win", "Lose"];
+const outcomes = ["win", "lose"];
 const seasons = [
     "2016-17",
     "2017-18",

@@ -1,6 +1,8 @@
 html, body {
   margin: 0;
   padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
 }  
 
 #container {
@@ -11,7 +13,7 @@ html, body {
 
 #sidebar {
   height: 100%;
-  width: 33%; /* set the width of the sidebar */
+  width: 320px; /* set the width of the sidebar */
   padding-top: 20px;
   background-color: rgb(227, 224, 213); /* add a background color for illustration */
 }
@@ -22,15 +24,19 @@ html, body {
   /* border: 1px solid red; */
 }
 
-#sidebar > #input-area > div.input {
+#sidebar > #input-area > div.input-row {
   /* display: block; */
   margin-bottom: 20px;
   /* border: 1px solid red; */
 }
 
-#sidebar > #input-area > div.input > select {
-  /* display: block; */
-  float: right;
+#sidebar > #input-area > div.input-row > * {
+  display: inline-block;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #main-content {
