@@ -69,7 +69,7 @@ betAmounts.forEach(amount => {
 // Populate outcome dropdown
 outcomes.forEach(outcome => {
     const option = document.createElement("option");
-    option.value = outcome == "Win" ? 1 : 0;
+    option.value = outcome == "win" ? 1 : 0;
     option.textContent = outcome
     outcomeSelect.appendChild(option);
 });

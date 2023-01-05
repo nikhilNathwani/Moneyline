@@ -35,13 +35,13 @@ def query_games():
     # Build the SELECT query using the filters
     query = 'SELECT * FROM games'
     where_clauses = []
-    if team_filter:
+    if team_filter != None:
         where_clauses.append(f'team = "{team_filter}"')
-    if gameOutcome_filter:
+    if gameOutcome_filter != None:
         where_clauses.append(f'outcome = {gameOutcome_filter}')
-    if seasonStartYear_filter:
+    if seasonStartYear_filter != None:
         where_clauses.append(f'seasonStartYear = {seasonStartYear_filter}')
-    if where_clauses:
+    if where_clauses != []:
         query += ' WHERE ' + ' AND '.join(where_clauses)
 
     print("Query:", query)
@@ -51,7 +51,7 @@ def query_games():
 
     # Fetch the results of the query
     games = cursor.fetchall()
-
+    print(games, len(games))
     # Close the cursor and connection
     cursor.close()
     conn.close()
