@@ -35,10 +35,10 @@ def query_games():
     filters= getFilterValues()
 
     # Execute the first query and fetch results
-    allGames= getAllGamesQueryString(cursor,filters)
+    allGames= getAllGames(cursor,filters)
     print("Games\n",allGames, len(allGames))
 
-    # Execute the second query and fetch results
+    # Execute the second query and fetch results    
     earningsQuery= getEarningsQueryString(filters)
     cursor.execute(earningsQuery)
     earnings = cursor.fetchall()

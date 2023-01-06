@@ -9,7 +9,7 @@ import sqlite3
 #winOdds
 #loseOdds
 
-def getAllGamesQueryString(cursor, filters):
+def getAllGames(cursor, filters):
 	# Build the SELECT query using the filters
 	team= filters['team']
 	seasonStartYear= filters['seasonStartYear']
