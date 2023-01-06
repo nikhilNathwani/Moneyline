@@ -1,4 +1,4 @@
-import sqlite3
+from queryHelper import *
 from flask import Flask, render_template, request, jsonify
 
 #Columns: 
@@ -15,6 +15,15 @@ app = Flask(__name__)
 def index():
   return render_template('index.html')
 
+#returns user-inputted values for betAmount, team, 
+#gameOutcome, & seasonStartYear. "req" short for "request"
+def getFilterValues():
+    bet = request.args.get('bet',type=int)
+    team = request.args.get('team')
+    outcome = request.args.get('outcome',type=int)
+    seasonStartYear= request.args.get('seasonStart',type=int)
+    return {"bet":bet, "team":team, 
+    "outcome":outcome, "seasonStartYear":seasonStartYear}    
 
 @app.route('/query')
 def query_games():
@@ -23,41 +32,26 @@ def query_games():
     cursor = conn.cursor()
 
     # Get the filters from the query string
-    betAmount_filter = request.args.get('bet',type=int)
-    team_filter = request.args.get('team')
-    gameOutcome_filter = request.args.get('outcome',type=int)
-    seasonStartYear_filter= request.args.get('seasonStart',type=int)
-    print("Bet:", betAmount_filter)
-    print("Team:", team_filter)
-    print("Outcome:", gameOutcome_filter)
-    print("Season Start:", seasonStartYear_filter)
+    filters= getFilterValues()
 
-    # Build the SELECT query using the filters
-    query = 'SELECT * FROM games'
-    where_clauses = []
-    if team_filter != None:
-        where_clauses.append(f'team = "{team_filter}"')
-    if gameOutcome_filter != None:
-        where_clauses.append(f'outcome = {gameOutcome_filter}')
-    if seasonStartYear_filter != None:
-        where_clauses.append(f'seasonStartYear = {seasonStartYear_filter}')
-    if where_clauses != []:
-        query += ' WHERE ' + ' AND '.join(where_clauses)
+    # Execute the first query and fetch results
+    allGamesQuery= getAllGamesQueryString(filters)
+    cursor.execute(allGamesQuery)
+    games= cursor.fetchall()
+    print("Games\n",games, len(games))
 
-    print("Query:", query)
+    # Execute the second query and fetch results
+    earningsQuery= getEarningsQueryString(filters)
+    cursor.execute(earningsQuery)
+    earnings = cursor.fetchall()
+    print("Earnings\n",earnings, len(earnings))
 
-    # Execute the SELECT query
-    cursor.execute(query)
-
-    # Fetch the results of the query
-    games = cursor.fetchall()
-    print(games, len(games))
     # Close the cursor and connection
     cursor.close()
     conn.close()
 
     # Return the results as JSON
-    return jsonify(games)
+    return jsonify({'games': games, 'earnings': earnings})
 
 
 if __name__ == '__main__':

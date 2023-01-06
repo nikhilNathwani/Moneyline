@@ -45,7 +45,6 @@ def calculatePayoutPerGame():
 			1-((SIGN(winOdds)+1)/2) AS isFavorite
 		FROM games
 		)
-
 		SELECT seasonStartYear, gameNumber, team, outcome, winOdds, wager,
 			(outcome)*(isUnderdog*(wager/100)*(winOdds+100) + isFavorite*(wager/ABS(winOdds))*(100+ABS(winOdds))) AS payout,
 			(outcome)*(isUnderdog*(wager/100)*(winOdds+100) + isFavorite*(wager/ABS(winOdds))*(100+ABS(winOdds))) - wager AS profit
@@ -66,7 +65,6 @@ def calculatePayoutPerSeason():
 			1-((SIGN(winOdds)+1)/2) AS isFavorite
 		FROM games
 		),
-
 		payouts
 		AS 
 		(SELECT seasonStartYear, gameNumber, team, outcome, winOdds, wager,
@@ -74,7 +72,6 @@ def calculatePayoutPerSeason():
 			(outcome)*(isUnderdog*(wager/100)*(winOdds+100) + isFavorite*(wager/ABS(winOdds))*(100+ABS(winOdds))) - wager AS profit
 		FROM betResults
 		)
-
 		SELECT seasonStartYear, team, 
 			MAX(gameNumber) AS totalGames,
 			SUM(wager) AS totalWager,
