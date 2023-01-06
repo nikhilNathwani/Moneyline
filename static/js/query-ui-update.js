@@ -36,11 +36,5 @@ function queryGames() {
 
         rawDataContainer.appendChild(document.createElement('br'))
         rawDataContainer.appendChild(document.createElement('br'))
-
-        response.earnings.forEach(earning => {
-          const earningElement = document.createElement('div');
-          earningElement.innerHTML = `${earning[0]} - ${earning[1]} - ${earning[2]} - ${earning[3]}`;
-          rawDataContainer.appendChild(earningElement);
-        });
     });
 }

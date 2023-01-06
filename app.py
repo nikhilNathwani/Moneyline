@@ -20,7 +20,7 @@ def index():
 def getFilterValues():
     bet = request.args.get('bet',type=int)
     team = request.args.get('team')
-    outcome = request.args.get('outcome',type=int)
+    outcome = request.args.get('outcome')
     seasonStartYear= request.args.get('seasonStart',type=int)
     return {"bet":bet, "team":team, 
     "outcome":outcome, "seasonStartYear":seasonStartYear}    
@@ -39,10 +39,8 @@ def query_games():
     print("Games\n",allGames, len(allGames))
 
     # Execute the second query and fetch results    
-    earningsQuery= getEarningsQueryString(filters)
-    cursor.execute(earningsQuery)
-    earnings = cursor.fetchall()
-    print("Earnings\n",earnings, len(earnings))
+    earnings= calculateEarnings(cursor,filters)
+    print("TOTAL PROFIT:",earnings)
 
     # Close the cursor and connection
     cursor.close()
