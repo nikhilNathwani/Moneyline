@@ -35,10 +35,8 @@ def query_games():
     filters= getFilterValues()
 
     # Execute the first query and fetch results
-    allGamesQuery= getAllGamesQueryString(filters)
-    cursor.execute(allGamesQuery)
-    games= cursor.fetchall()
-    print("Games\n",games, len(games))
+    allGames= getAllGamesQueryString(cursor,filters)
+    print("Games\n",allGames, len(allGames))
 
     # Execute the second query and fetch results
     earningsQuery= getEarningsQueryString(filters)
@@ -51,7 +49,7 @@ def query_games():
     conn.close()
 
     # Return the results as JSON
-    return jsonify({'games': games, 'earnings': earnings})
+    return jsonify({'games': allGames, 'earnings': earnings})
 
 
 if __name__ == '__main__':

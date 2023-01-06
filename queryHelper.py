@@ -9,7 +9,7 @@ import sqlite3
 #winOdds
 #loseOdds
 
-def getAllGamesQueryString(filters):
+def getAllGamesQueryString(cursor, filters):
 	# Build the SELECT query using the filters
 	team= filters['team']
 	seasonStartYear= filters['seasonStartYear']
@@ -21,7 +21,8 @@ def getAllGamesQueryString(filters):
 		where_clauses.append(f'seasonStartYear = {seasonStartYear}')
 	if where_clauses != []:
 		query += ' WHERE ' + ' AND '.join(where_clauses)
-	return query	
+	cursor.execute(query)
+	return cursor.fetchall()	
 
 #only works for a "win" prediction
 def getEarningsQueryString(filters):

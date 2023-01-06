@@ -15,7 +15,7 @@ function queryGames() {
   const seasonStartYear = document.getElementById('season-input').value;
 
   // Set up the results container
-  const resultsContainer = document.getElementById('results-container');
+  const rawDataContainer = document.getElementById('raw-data-container');
 
   // Make a request to the /query route, passing the filters as parameters
   fetch(`/query?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`)
@@ -25,22 +25,22 @@ function queryGames() {
         console.log(response.games);
 
         // Clear the results container
-        resultsContainer.innerHTML = '';
+        rawDataContainer.innerHTML = '';
 
         // Loop through the games and create a new element for each one
         response.games.forEach(game => {
           const gameElement = document.createElement('div');
           gameElement.innerHTML = `${game[0]} - ${game[1]} - ${game[2]} - ${game[3]} - ${game[4]} - ${game[5]}`;
-          resultsContainer.appendChild(gameElement);
+          rawDataContainer.appendChild(gameElement);
         });
 
-        resultsContainer.appendChild(document.createElement('br'))
-        resultsContainer.appendChild(document.createElement('br'))
+        rawDataContainer.appendChild(document.createElement('br'))
+        rawDataContainer.appendChild(document.createElement('br'))
 
         response.earnings.forEach(earning => {
           const earningElement = document.createElement('div');
           earningElement.innerHTML = `${earning[0]} - ${earning[1]} - ${earning[2]} - ${earning[3]}`;
-          resultsContainer.appendChild(earningElement);
+          rawDataContainer.appendChild(earningElement);
         });
     });
 }
