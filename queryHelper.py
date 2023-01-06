@@ -13,7 +13,7 @@ def getAllGames(cursor, filters):
 	# Build the SELECT query using the filters
 	team= filters['team']
 	seasonStartYear= filters['seasonStartYear']
-	
+
 	query = f"""SELECT *
 			FROM games
 			WHERE team = "{team}"
@@ -22,6 +22,7 @@ def getAllGames(cursor, filters):
 	cursor.execute(query)
 	return cursor.fetchall()	
 
+
 def calculateEarnings(cursor, filters):
 	losses= incorrectGuessProfit(cursor,filters) 
 	earningsExpected= correctExpectedGuessProfit(cursor,filters)
@@ -29,7 +30,7 @@ def calculateEarnings(cursor, filters):
 	return earningsExpected + earningsUnexpected - losses
 
 def incorrectGuessProfit(cursor, filters):
-	#unpack 'filters' object
+	#Unpack 'filters' object
 	team= filters['team']
 	seasonStartYear= filters['seasonStartYear']
 	guessedOutcome= 1 if filters['outcome']=='win' else 0
@@ -40,25 +41,68 @@ def incorrectGuessProfit(cursor, filters):
 			FROM games
 			WHERE team = "{team}"
 			AND seasonStartYear = {seasonStartYear}
-			AND outcome = {guessedOutcome}"""
+			AND outcome <> {guessedOutcome}"""
 	
-	#Execute query and extract the 
+	#Execute query and extract the COUNT value
 	#Note that fetchall() returns list of tuples even if I'm just getting COUNT
 	#E.g. [( <value of COUNT(*)> , <empty 2nd value> )]
 	cursor.execute(query)
 	count= cursor.fetchall()[0][0]
 
-	#Calculate profit
+	#Calculate and return profit
 	profit= count*wager
 	print("LOSSES:", profit)
 	return profit
 
 
 def correctExpectedGuessProfit(cursor, filters):
+	#Unpack 'filters' object
+	team= filters['team']
+	seasonStartYear= filters['seasonStartYear']
+	guessedOutcome= 1 if filters['outcome']=='win' else 0
+	wager= filters['bet']
+
+	#Create SQL query
+	query = f"""SELECT COUNT(*)
+			FROM games
+			WHERE team = "{team}"
+			AND seasonStartYear = {seasonStartYear}
+			AND outcome == {guessedOutcome};"""
+
 	return 0
 
 def correctUnexpectedGuessProfit(cursor, filters):
-	return 0
+	#Unpack 'filters' object
+	team= filters['team']
+	seasonStartYear= filters['seasonStartYear']
+	guessedOutcome= filters['outcome']=='win'
+	wager= filters['bet']
+
+
+	#Determine whether to looks at winOdds or loseOdds
+	odds= "winOdds" if guessedOutcome=="win" else "loseOdds"
+
+	#Create SQL query
+	#Notes:
+	# - Since I'm calculating "unexpected" guess profit, I need odds 
+	#   to be positive. So I should add up instances where guessOutcome
+	#   is correct, AND winOdds/loseOdds is positive (depending on whether
+	#   I guessed a win or a loss, via the 'odds' variable above).
+	query = f"""SELECT SUM({odds})
+			FROM games
+			WHERE team = "{team}"
+			AND seasonStartYear = {seasonStartYear}
+			AND outcome = {guessedOutcome}
+			AND {odds}>0;"""
+	
+	#Execute query and extract the SUM value
+	cursor.execute(query)
+	oddsSum= cursor.fetchall()[0][0] #fetchall() returns [(<value of SUM>,)]
+
+	#Calculate and return profit
+	profit= oddsSum*wager/100
+	print("EXPECTED EARNINGS:", profit)
+	return profit
 
 #only works for a "win" prediction
 def getEarningsQueryString(filters):
