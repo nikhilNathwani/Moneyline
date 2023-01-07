@@ -39,15 +39,15 @@ def query_games():
     print("GAMES:\n",allGames, len(allGames))
 
     # Execute the second query and fetch results    
-    earnings= calculateEarnings(cursor,filters)
-    print("TOTAL PROFIT:",earnings)
+    profit= calculateProfit(cursor,filters)
+    print("TOTAL PROFIT:",profit)
 
     # Close the cursor and connection
     cursor.close()
     conn.close()
 
     # Return the results as JSON
-    return jsonify({'games': allGames, 'earnings': earnings})
+    return jsonify({'games': allGames, 'profit': profit})
 
 
 if __name__ == '__main__':

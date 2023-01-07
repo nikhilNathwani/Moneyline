@@ -23,11 +23,11 @@ def getAllGames(cursor, filters):
 	return cursor.fetchall()	
 
 
-def calculateEarnings(cursor, filters):
+def calculateProfit(cursor, filters):
 	losses= incorrectGuessProfit(cursor,filters) 
-	earningsUnexpected= correctUnexpectedGuessProfit(cursor,filters)
-	earningsExpected= correctExpectedGuessProfit(cursor,filters)
-	profit= earningsUnexpected + earningsExpected - losses
+	correctUnexpected= correctUnexpectedGuessProfit(cursor,filters)
+	correctExpected= correctExpectedGuessProfit(cursor,filters)
+	profit= correctUnexpected + correctExpected - losses
 	profit= profit - profit%0.01 #round down to nearest cent
 	return profit
 
