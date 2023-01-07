@@ -25,15 +25,17 @@ def getAllGames(cursor, filters):
 
 def calculateEarnings(cursor, filters):
 	losses= incorrectGuessProfit(cursor,filters) 
-	earningsExpected= correctExpectedGuessProfit(cursor,filters)
 	earningsUnexpected= correctUnexpectedGuessProfit(cursor,filters)
-	return earningsExpected + earningsUnexpected - losses
+	earningsExpected= correctExpectedGuessProfit(cursor,filters)
+	profit= earningsUnexpected + earningsExpected - losses
+	profit= profit - profit%0.01 #round down to nearest cent
+	return profit
 
 def incorrectGuessProfit(cursor, filters):
 	#Unpack 'filters' object
 	team= filters['team']
 	seasonStartYear= filters['seasonStartYear']
-	guessedOutcome= 1 if filters['outcome']=='win' else 0
+	guessedOutcome= filters['outcome']=='win' #1 if "win", else 0
 	wager= filters['bet']
 
 	#Create SQL query
@@ -54,33 +56,56 @@ def incorrectGuessProfit(cursor, filters):
 	print("LOSSES:", profit)
 	return profit
 
-
 def correctExpectedGuessProfit(cursor, filters):
 	#Unpack 'filters' object
 	team= filters['team']
 	seasonStartYear= filters['seasonStartYear']
-	guessedOutcome= 1 if filters['outcome']=='win' else 0
+	guessedOutcome= filters['outcome']
 	wager= filters['bet']
 
+	#Determine whether to look at winOdds or loseOdds
+	odds= "winOdds" if guessedOutcome=="win" else "loseOdds"
+
+	#Now set guessedOutcome to 0/1 for my SQL query
+	guessedOutcome= int(filters['outcome']=="win")
+
 	#Create SQL query
-	query = f"""SELECT COUNT(*)
+	#Notes:
+	# - Since I'm calculating "expected" guess profit, I need odds 
+	#   to be negative. So I should add up instances where guessOutcome
+	#   is correct, AND winOdds/loseOdds is negative (depending on whether
+	#   I guessed a win or a loss, via the 'odds' variable above).
+	# - I'm adding together the winOdds/loseOdds, but they are stored as 
+	#   strings e.g. "+120" and "-150", so before taking the SUM I need to
+	#   get the proper substring and cast to an integer
+	query = f"""SELECT SUM(1.0/CAST(SUBSTR({odds}, 2) AS INTEGER))
 			FROM games
 			WHERE team = "{team}"
 			AND seasonStartYear = {seasonStartYear}
-			AND outcome == {guessedOutcome};"""
+			AND outcome = {guessedOutcome}
+			AND SUBSTR({odds},1,1) = '-';"""
+		
+	#Execute query and extract the SUM value
+	cursor.execute(query)
+	oddsReciprocalSum= cursor.fetchall()[0][0] #fetchall() returns [(<value of SUM>,)]
 
-	return 0
+	#Calculate and return profit
+	profit= oddsReciprocalSum*wager*100.0
+	print("EXPECTED EARNINGS:", profit)
+	return profit
 
 def correctUnexpectedGuessProfit(cursor, filters):
 	#Unpack 'filters' object
 	team= filters['team']
 	seasonStartYear= filters['seasonStartYear']
-	guessedOutcome= filters['outcome']=='win'
+	guessedOutcome= filters['outcome']
 	wager= filters['bet']
 
-
-	#Determine whether to looks at winOdds or loseOdds
+	#Determine whether to look at winOdds or loseOdds
 	odds= "winOdds" if guessedOutcome=="win" else "loseOdds"
+
+	#Now set guessedOutcome to 0/1 for my SQL query
+	guessedOutcome= int(filters['outcome']=="win")
 
 	#Create SQL query
 	#Notes:
@@ -88,21 +113,25 @@ def correctUnexpectedGuessProfit(cursor, filters):
 	#   to be positive. So I should add up instances where guessOutcome
 	#   is correct, AND winOdds/loseOdds is positive (depending on whether
 	#   I guessed a win or a loss, via the 'odds' variable above).
-	query = f"""SELECT SUM({odds})
+	# - I'm adding together the winOdds/loseOdds, but they are stored as 
+	#   strings e.g. "+120" and "-150", so before taking the SUM I need to
+	#   get the proper substring and cast to an integer
+	query = f"""SELECT SUM(CAST(SUBSTR({odds}, 2) AS INTEGER))
 			FROM games
 			WHERE team = "{team}"
 			AND seasonStartYear = {seasonStartYear}
 			AND outcome = {guessedOutcome}
-			AND {odds}>0;"""
-	
+			AND SUBSTR({odds},1,1) = '+';"""
+
 	#Execute query and extract the SUM value
 	cursor.execute(query)
 	oddsSum= cursor.fetchall()[0][0] #fetchall() returns [(<value of SUM>,)]
 
 	#Calculate and return profit
-	profit= oddsSum*wager/100
-	print("EXPECTED EARNINGS:", profit)
+	profit= oddsSum*wager/100.0
+	print("UNEXPECTED EARNINGS:", profit)
 	return profit
+
 
 #only works for a "win" prediction
 def getEarningsQueryString(filters):

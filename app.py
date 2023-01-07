@@ -36,7 +36,7 @@ def query_games():
 
     # Execute the first query and fetch results
     allGames= getAllGames(cursor,filters)
-    print("Games\n",allGames, len(allGames))
+    print("GAMES:\n",allGames, len(allGames))
 
     # Execute the second query and fetch results    
     earnings= calculateEarnings(cursor,filters)
