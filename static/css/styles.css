@@ -53,12 +53,14 @@ div#filter-page > div#input-area > div#filter-paragraph {
   margin-bottom: 40px;
 }
 
-
-#input-area > select {
-  font-size: 28px;
+div#filter-page > div#input-area > div#filter-paragraph > select {
+  font-size: 24px;
   height: 36px;
-  /* margin-left: 10px;
-  margin-right: 10px; */
+  position: relative;
+  bottom: 4px;
+  color: #085742;
+  text-align: center;
+  margin: 0 5px;
 }
 
 #input-area > #submit > button {
