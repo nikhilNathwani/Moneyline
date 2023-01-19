@@ -1,20 +1,58 @@
-html, body {
+/* Add global styles */
+* {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-}  
-
-.full-screen {
-  height: 100vh;
-  width: 100%;
+  /* box-sizing: border-box; */
 }
 
-#input-area {
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+div.page-container {
+  padding: 0px 40px;
+}
+
+div#landing-page {
+  background-color: #085742; 
+  height: 600px;
+  text-align: center; 
+}
+
+div#landing-page > div#title-area {
+  /* background-color: red; */
+  position: relative;
+  top: 250px;
+}
+
+div#landing-page > div#title-area > h1 {
+  font-size: 84px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+div#landing-page > div#title-area > h2 {
+  font-size: 32px;
+  color: #CAFBE8;
+}
+
+div#filter-page {
+  background-color: #458A72;
+  height: 400px;
+  text-align: center;
+}
+
+div#filter-page > div#input-area {
+  position: relative;
+  top: 150px;
   font-size: 36px;
-  line-height: 64px;
-  width: 90%;
-  margin: auto;
+  color: white;
 }
+
+div#filter-page > div#input-area > div#filter-paragraph {
+  margin-bottom: 40px;
+}
+
 
 #input-area > select {
   font-size: 28px;
