@@ -2,7 +2,7 @@
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
 
 body {
@@ -10,19 +10,19 @@ body {
 }
 
 div.page-container {
-  padding: 0px 40px;
+  padding: 0px 25px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 div#landing-page {
   background-color: #085742; 
-  height: 600px;
-  text-align: center; 
+  height: 650px;
 }
 
 div#landing-page > div#title-area {
-  /* background-color: red; */
-  position: relative;
-  top: 250px;
+  margin: auto;
 }
 
 div#landing-page > div#title-area > h1 {
@@ -34,22 +34,23 @@ div#landing-page > div#title-area > h1 {
 div#landing-page > div#title-area > h2 {
   font-size: 32px;
   color: #CAFBE8;
+  line-height: 50px;
 }
 
 div#filter-page {
   background-color: #458A72;
-  height: 400px;
-  text-align: center;
+  height: 700px;
 }
 
 div#filter-page > div#input-area {
-  position: relative;
-  top: 150px;
+  width: 800px;
+  margin: auto;
   font-size: 36px;
   color: white;
 }
 
 div#filter-page > div#input-area > div#filter-paragraph {
+  line-height: 60px;
   margin-bottom: 40px;
 }
 
