@@ -10,6 +10,7 @@ body {
 }
 
 div.page-container {
+  height: 100vh;
   padding: 0px 25px;
   display: flex;
   align-items: center;
@@ -18,7 +19,6 @@ div.page-container {
 
 div#landing-page {
   background-color: #085742; 
-  height: 650px;
 }
 
 div#landing-page > div#title-area {
@@ -39,7 +39,6 @@ div#landing-page > div#title-area > h2 {
 
 div#filter-page {
   background-color: #458A72;
-  height: 700px;
 }
 
 div#filter-page > div#input-area {
