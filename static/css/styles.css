@@ -64,6 +64,7 @@ div#filter-page > div#input-area > div#filter-paragraph > select {
   color: #085742;
   text-align: center;
   margin: 0 5px;
+  padding: 0 12px;
 }
 
 #input-area > #submit > button {
