@@ -1,10 +1,23 @@
-div#results-page > #raw-data-UI {
-  border: 1px solid black;
-  width: 300px;
+div#results-page > div#raw-data-UI {
+  background-color: #FFFFFF;
+  /* width: 300px; */
   height: 200px;
   overflow-y: scroll;
 }
 
-div#results-page > #raw-data-UI > div {
+div#results-page > div#raw-data-UI > div {
   padding: 5px;
+}
+
+div#results-page {
+  background-color: #DDDDDD;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+div#results-page > div.result-container {
+  background-color: #FFFFFF;
+  width: 800px;
+  flex: 1 200px;
+  margin: 20px 0px;
 }
