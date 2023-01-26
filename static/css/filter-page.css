@@ -27,7 +27,7 @@ div#filter-page > div#input-area > div#filter-paragraph > select {
     padding: 0 12px;
     }
 
-#input-area > #submit > button {
+div#filter-page > div#input-area > div#submit > button {
     height: 54px;
     width: 250px;
     font-family: 'Open Sans', sans-serif;
@@ -39,7 +39,7 @@ div#filter-page > div#input-area > div#filter-paragraph > select {
     border-radius: 14px;
 }
 
-#input-area > #submit > button:hover {
+div#filter-page > div#input-area > div#submit > button:hover {
     background-color: #085742;
     cursor: pointer;
     color: white;
@@ -47,6 +47,6 @@ div#filter-page > div#input-area > div#filter-paragraph > select {
     border-width: 3px;
 }
 
-#input-area > #submit > button:active {
+div#filter-page > div#input-area > div#submit > button:active {
     background-color: #0a6d53;
 }
