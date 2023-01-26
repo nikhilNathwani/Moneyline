@@ -30,24 +30,32 @@ function makeTotalProfitBox(profit) {
   //Create the 'then you would have won' text, i.e. the "pre-text"
   const preText= document.createElement('span');
   preText.id = "pre-text";
-  preText.innerText = "Then you would have...";
+  preText.innerText = "Then your total profit would be";
   totalProfitBox.appendChild(preText);
 
   //Create the '[won/lost] [profit $ amount]' text, i.e. the "result-text"
   const resultText= document.createElement('span');
   resultText.id = "result-text";
-  resultText.innerText = profitTextHelper(profit);
+  profitResult= profitTextHelper(profit);
+  resultText.innerText = profitResult.text;
+  resultText.style.color= profitResult.color;
   totalProfitBox.appendChild(resultText);
+
+  //Create the 'by the end of the season' text, i.e. the "post-text"
+  const postText= document.createElement('span');
+  postText.id = "post-text";
+  postText.innerText = "at the end of the season!";
+  totalProfitBox.appendChild(postText);
 
   return;
 }
 
 function profitTextHelper(profit) {
   if (profit < 0) {
-    return "Lost $" + -1*profit;
+    return {"text":"-$" + -1*profit, "color":"red"};
   } 
   else {
-    return "Won $" + profit;
+    return {"text":"+$" + profit, "color":"green"};
   }
 }
 
