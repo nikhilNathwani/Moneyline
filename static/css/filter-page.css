@@ -1,21 +1,21 @@
 div#filter-page {
     background-color: #458A72;
-  }
+}
   
-  div#filter-page > div#input-area {
+div#filter-page > div#input-area {
     width: 1000px;
     margin: auto;
     font-size: 64px;
     font-weight: bold;
     color: white;
-  }
-  
-  div#filter-page > div#input-area > div#filter-paragraph {
+}
+
+div#filter-page > div#input-area > div#filter-paragraph {
     line-height: 108px;
     margin-bottom: 80px;
-  }
-  
-  div#filter-page > div#input-area > div#filter-paragraph > select {
+}
+
+div#filter-page > div#input-area > div#filter-paragraph > select {
     font-size: 32px;
     font-weight: bold;
     height: 54px;
@@ -25,9 +25,9 @@ div#filter-page {
     text-align: center;
     margin: 0 5px;
     padding: 0 12px;
-  }
-  
-  #input-area > #submit > button {
+    }
+
+#input-area > #submit > button {
     height: 54px;
     width: 250px;
     font-family: 'Open Sans', sans-serif;
@@ -37,16 +37,16 @@ div#filter-page {
     color: #085742;
     border: 2px solid #085742;
     border-radius: 14px;
-  }
-  
-  #input-area > #submit > button:hover {
+}
+
+#input-area > #submit > button:hover {
     background-color: #085742;
     cursor: pointer;
     color: white;
     border-color: white;
     border-width: 3px;
-  }
-  
-  #input-area > #submit > button:active {
+}
+
+#input-area > #submit > button:active {
     background-color: #0a6d53;
-  }
+}
