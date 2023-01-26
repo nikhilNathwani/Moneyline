@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', queryGames);
 });
 
-
 function queryGames() {
 
   // Get the values of the UI filters
@@ -14,27 +13,43 @@ function queryGames() {
   const outcome = document.getElementById('outcome-input').value; 
   const seasonStartYear = document.getElementById('season-input').value;
 
-  // Set up the results container
-  const rawDataContainer = document.getElementById('raw-data-container');
-
   // Make a request to the /query route, passing the filters as parameters
   fetch(`/query?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`)
     .then(response => response.json())  
     .then(response => {
-
-        console.log(response.games);
-
-        // Clear the results container
-        rawDataContainer.innerHTML = '';
-
-        // Loop through the games and create a new element for each one
-        response.games.forEach(game => {
-          const gameElement = document.createElement('div');
-          gameElement.innerHTML = `${game[0]} - ${game[1]} - ${game[2]} - ${game[3]} - ${game[4]} - ${game[5]}`;
-          rawDataContainer.appendChild(gameElement);
-        });
-
-        rawDataContainer.appendChild(document.createElement('br'))
-        rawDataContainer.appendChild(document.createElement('br'))
+      makeTotalProfitUI(response.profit);
+      makeRawDataUI(response.games);  
     });
+}
+
+function makeTotalProfitUI(profit) {
+  // Set up the results container
+  const totalProfitUI = document.getElementById('total-profit-UI');
+  totalProfitUI.innerHTML = '';
+
+  //Create the 'then you would have won' text
+  const caption= document.createElement('span');
+  caption.id = "caption-text";
+  caption.innerText = "Then you would have...";
+  totalProfitUI.appendChild(caption);
+
+  return;
+}
+
+function makeRawDataUI(games) {
+  console.log(games);
+
+  // Set up the results container
+  const rawDataUI = document.getElementById('raw-data-UI');
+  rawDataUI.innerHTML = '';
+
+  // Loop through the games and create a new element for each one
+  games.forEach(game => {
+    const gameElement = document.createElement('div');
+    gameElement.innerHTML = `${game[0]} - ${game[1]} - ${game[2]} - ${game[3]} - ${game[4]} - ${game[5]}`;
+    rawDataUI.appendChild(gameElement);
+  });
+
+  rawDataUI.appendChild(document.createElement('br'))
+  rawDataUI.appendChild(document.createElement('br'))
 }

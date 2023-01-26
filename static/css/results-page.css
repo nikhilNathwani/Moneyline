@@ -1,0 +1,10 @@
+div#results-page > #raw-data-UI {
+  border: 1px solid black;
+  width: 300px;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+div#results-page > #raw-data-UI > div {
+  padding: 5px;
+}

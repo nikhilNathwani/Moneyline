@@ -1,0 +1,52 @@
+div#filter-page {
+    background-color: #458A72;
+  }
+  
+  div#filter-page > div#input-area {
+    width: 1000px;
+    margin: auto;
+    font-size: 64px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  div#filter-page > div#input-area > div#filter-paragraph {
+    line-height: 108px;
+    margin-bottom: 80px;
+  }
+  
+  div#filter-page > div#input-area > div#filter-paragraph > select {
+    font-size: 32px;
+    font-weight: bold;
+    height: 54px;
+    position: relative;
+    bottom: 10px;
+    color: #085742;
+    text-align: center;
+    margin: 0 5px;
+    padding: 0 12px;
+  }
+  
+  #input-area > #submit > button {
+    height: 54px;
+    width: 250px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #CAFBE8;
+    color: #085742;
+    border: 2px solid #085742;
+    border-radius: 14px;
+  }
+  
+  #input-area > #submit > button:hover {
+    background-color: #085742;
+    cursor: pointer;
+    color: white;
+    border-color: white;
+    border-width: 3px;
+  }
+  
+  #input-area > #submit > button:active {
+    background-color: #0a6d53;
+  }

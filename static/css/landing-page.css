@@ -1,0 +1,19 @@
+div#landing-page {
+    background-color: #085742; 
+  }
+  
+  div#landing-page > div#title-area {
+    margin: auto;
+  }
+  
+  div#landing-page > div#title-area > h1 {
+    font-size: 84px;
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  div#landing-page > div#title-area > h2 {
+    font-size: 32px;
+    color: #CAFBE8;
+    line-height: 50px;
+  }
