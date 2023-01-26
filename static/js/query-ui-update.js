@@ -49,10 +49,10 @@ function makeTotalProfitBox(profit) {
 
 function profitTextHelper(profit) {
   if (profit < 0) {
-    return {"text":"-$" + -1*profit, "color":"red"};
+    return {"text":"-$" + (-1*profit).toFixed(2), "color":"red"};
   } 
   else {
-    return {"text":"+$" + profit, "color":"green"};
+    return {"text":"+$" + profit.toFixed(2), "color":"green"};
   }
 }
 
