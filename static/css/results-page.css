@@ -7,7 +7,7 @@ div#results-page {
 
 div#results-page > div.result-container {
   background-color: #FFFFFF;
-  width: 800px;
+  width: 1000px;
   flex: 1;
   margin: 20px 0px;
 }

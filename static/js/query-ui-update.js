@@ -36,12 +36,20 @@ function makeTotalProfitBox(profit) {
   //Create the '[won/lost] [profit $ amount]' text, i.e. the "result-text"
   const resultText= document.createElement('span');
   resultText.id = "result-text";
-  resultText.innerText = "Won " + profit;
+  resultText.innerText = profitTextHelper(profit);
   totalProfitBox.appendChild(resultText);
 
   return;
 }
 
+function profitTextHelper(profit) {
+  if (profit < 0) {
+    return "Lost $" + -1*profit;
+  } 
+  else {
+    return "Won $" + profit;
+  }
+}
 
 function makeRawDataBox(games) {
   console.log(games);

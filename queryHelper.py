@@ -29,6 +29,7 @@ def calculateProfit(cursor, filters):
 	correctExpected= correctExpectedGuessProfit(cursor,filters)
 	profit= correctUnexpected + correctExpected - losses
 	profit= profit - profit%0.01 #round down to nearest cent
+	profit= "{:.2f}".format(profit) #ensure there's only 2 decimal places
 	return profit
 
 def incorrectGuessProfit(cursor, filters):
