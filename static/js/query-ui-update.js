@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function queryGames() {
-
   // Get the values of the UI filters
   const bet = document.getElementById('bet-input').value; 
   const team = document.getElementById('team-input').value;
@@ -46,8 +45,6 @@ function makeTotalProfitBox(profit) {
   postText.id = "post-text";
   postText.innerText = "at the end of the season!";
   totalProfitBox.appendChild(postText);
-
-  return;
 }
 
 function profitTextHelper(profit) {
