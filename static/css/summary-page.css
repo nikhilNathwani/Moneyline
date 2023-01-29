@@ -1,0 +1,31 @@
+div#summary-page {
+    background-color: #EEEEEE;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+  
+div#summary-page > div#total-profit-div {
+    width: 1000px;
+    margin: auto;
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+/* Setting up the flow of the total-profit-box div
+   The top 1/3 should have the "Then you would have..." text
+   And the bottom 2/3 should have the profit result */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+div#summary-page > div#total-profit-div > span {
+    margin: 20px 0px;
+    color: #085742;
+}
+
+div#summary-page > div#total-profit-div > span#result-text {
+    font-size: 72px;
+    font-weight: bold;
+}

@@ -16,21 +16,21 @@ function queryGames() {
   fetch(`/query?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`)
     .then(response => response.json())  
     .then(response => {
-      makeTotalProfitBox(response.profit);
+      makeTotalProfitUI(response.profit);
       makeRawDataBox(response.games);  
     });
 }
 
-function makeTotalProfitBox(profit) {
+function makeTotalProfitUI(profit) {
   // Set up the results container
-  const totalProfitBox = document.getElementById('total-profit-box');
-  totalProfitBox.innerHTML = '';
+  const totalProfitDiv = document.getElementById('total-profit-div');
+  totalProfitDiv.innerHTML = '';
 
   //Create the 'then you would have won' text, i.e. the "pre-text"
   const preText= document.createElement('span');
   preText.id = "pre-text";
-  preText.innerText = "Then your total profit would be";
-  totalProfitBox.appendChild(preText);
+  preText.innerText = "...then your total profit would be";
+  totalProfitDiv.appendChild(preText);
 
   //Create the '[won/lost] [profit $ amount]' text, i.e. the "result-text"
   const resultText= document.createElement('span');
@@ -38,13 +38,13 @@ function makeTotalProfitBox(profit) {
   profitResult= profitTextHelper(profit);
   resultText.innerText = profitResult.text;
   resultText.style.color= profitResult.color;
-  totalProfitBox.appendChild(resultText);
+  totalProfitDiv.appendChild(resultText);
 
   //Create the 'by the end of the season' text, i.e. the "post-text"
   const postText= document.createElement('span');
   postText.id = "post-text";
   postText.innerText = "at the end of the season!";
-  totalProfitBox.appendChild(postText);
+  totalProfitDiv.appendChild(postText);
 }
 
 function profitTextHelper(profit) {

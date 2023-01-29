@@ -5,7 +5,7 @@ div#filter-page {
 div#filter-page > div#input-area {
     width: 1000px;
     margin: auto;
-    font-size: 64px;
+    font-size: 48px;
     font-weight: bold;
     color: white;
 }
@@ -25,7 +25,7 @@ div#filter-page > div#input-area > div#filter-paragraph > select {
     text-align: center;
     margin: 0 5px;
     padding: 0 12px;
-    }
+}
 
 div#filter-page > div#input-area > div#submit > button {
     height: 54px;
