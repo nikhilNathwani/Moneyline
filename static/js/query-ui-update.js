@@ -1,8 +1,12 @@
 // Set up the submit button, and ensure it is
 // loaded before adding its event listener
-document.addEventListener('DOMContentLoaded', () => {
-  const submitButton = document.getElementById('submit-button');
-  submitButton.addEventListener('click', queryGames);
+const submitButton = document.getElementById('submit-button');
+submitButton.addEventListener('click', function() {
+  window.scrollTo({
+    top: document.getElementById("summary-page").offsetTop,
+    behavior: "smooth"
+  });
+  queryGames();
 });
 
 function queryGames() {
