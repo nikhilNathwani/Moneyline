@@ -32,12 +32,11 @@ function makeTotalProfitUI(profit) {
   preText.innerText = "...then your total profit would be";
   totalProfitDiv.appendChild(preText);
 
-  //Create the '[won/lost] [profit $ amount]' text, i.e. the "result-text"
+  //Create the '[+/-] [profit $ amount]' text, i.e. the "result-text"
   const resultText= document.createElement('span');
   resultText.id = "result-text";
-  profitResult= profitTextHelper(profit);
-  resultText.innerText = profitResult.text;
-  resultText.style.color= profitResult.color;
+  profitTextAnimation(resultText, profit);
+  resultText.style.color= profit<0 ? "red" : "green";
   totalProfitDiv.appendChild(resultText);
 
   //Create the 'by the end of the season' text, i.e. the "post-text"
@@ -54,6 +53,29 @@ function profitTextHelper(profit) {
   else {
     return {"text":"+$" + profit.toFixed(2), "color":"green"};
   }
+}
+
+function profitTextAnimation(profitSpan,profitAmount) {
+  //Animation variables
+  var current = 0; // the current dollar amount
+  var increment = 1; // the amount to increment by
+  var speed = 1; // the animation speed in milliseconds
+
+  //Positive/negative profit variables
+  var profitAbsVal= profitAmount < 0 ? -profitAmount : profitAmount;
+  var sign= profitAmount < 0 ? "-" : "+";
+  
+  profitSpan.innerHTML = "$" + current;
+  console.log(current, profitAmount);
+
+  var animate = setInterval(function(){
+      current += increment;
+      profitSpan.innerHTML = sign + "$" + current.toFixed(2);
+      if(current >= profitAbsVal){
+          profitSpan.innerHTML = sign + "$" + profitAbsVal.toFixed(2);
+          clearInterval(animate);
+      }
+  }, speed);  
 }
 
 function makeRawDataBox(games) {
