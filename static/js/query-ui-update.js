@@ -1,5 +1,4 @@
-// Set up the submit button, and ensure it is
-// loaded before adding its event listener
+// Set up the submit button
 const submitButton = document.getElementById('submit-button');
 submitButton.addEventListener('click', function() {
   window.scrollTo({
@@ -9,6 +8,8 @@ submitButton.addEventListener('click', function() {
   queryGames();
 });
 
+//Collect the user inputs, then make corresponding request to SQL database,
+//and use the resulting data to generate the data visualizations
 function queryGames() {
   // Get the values of the UI filters
   const bet = document.getElementById('bet-input').value; 
@@ -17,6 +18,7 @@ function queryGames() {
   const seasonStartYear = document.getElementById('season-input').value;
 
   // Make a request to the /query route, passing the filters as parameters
+  // Then use the query response data to generate the data visualizations
   fetch(`/query?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`)
     .then(response => response.json())  
     .then(response => {
@@ -48,15 +50,6 @@ function makeTotalProfitUI(profit) {
   postText.id = "post-text";
   postText.innerText = "at the end of the season!";
   totalProfitDiv.appendChild(postText);
-}
-
-function profitTextHelper(profit) {
-  if (profit < 0) {
-    return {"text":"-$" + (-1*profit).toFixed(2), "color":"red"};
-  } 
-  else {
-    return {"text":"+$" + profit.toFixed(2), "color":"green"};
-  }
 }
 
 function profitTextAnimation(profitSpan,profitAmount) {
