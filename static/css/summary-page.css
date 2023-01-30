@@ -52,20 +52,20 @@ div#summary-page > div#summary-page-buttons > button {
     font-family: 'Open Sans', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    background-color: #CAFBE8;
+    background-color: white;
     color: #085742;
     border: 2px solid #085742;
     border-radius: 14px;
 }
 
 div#summary-page > div#summary-page-buttons > button:hover {
-    background-color: #085742;
+    background-color: #CAFBE8;
     cursor: pointer;
-    color: white;
-    border-color: white;
+    color: #085742;
+    border-color: #085742;
     border-width: 3px;
 }
 
 div#summary-page > div#summary-page-buttons > button:active {
-    background-color: #0a6d53;
+    background-color: #458A72;
 }
