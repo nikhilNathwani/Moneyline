@@ -1,31 +1,71 @@
+
+/* ~~~~~~~~~~ PAGE ALL-UP ~~~~~~~~~~ */
+
 div#summary-page {
-    background-color: #FFFFFF;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-  
-div#summary-page > div#total-profit-div {
-    width: 1000px;
-    margin: auto;
-    font-size: 48px;
-    font-weight: bold;
-    color: black;
-/* Setting up the flow of the total-profit-box div
-   The top 1/3 should have the "Then you would have..." text
-   And the bottom 2/3 should have the profit result */
+    background-color: #DDDDDD;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-flow: column nowrap;
     justify-content: center;
+    align-items: center;
+    row-gap: 120px;
+}
+
+
+
+/* ~~~~~~~~~~ TOTAL PROFIT DIV ~~~~~~~~~~ */
+
+div#summary-page > div#total-profit-div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    row-gap: 40px;
 }
 
 div#summary-page > div#total-profit-div > span {
-    margin: 20px 0px;
+    font-size: 48px;
+    font-weight: bold;
     color: #085742;
 }
 
 div#summary-page > div#total-profit-div > span#result-text {
     font-size: 72px;
     font-weight: bold;
+}
+
+
+
+/* ~~~~~~~~~~ BUTTONS DIV ~~~~~~~~~~ */
+
+div#summary-page > div#summary-page-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px 40px;
+}
+
+div#summary-page > div#summary-page-buttons > button {
+    height: 54px;
+    width: 250px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #CAFBE8;
+    color: #085742;
+    border: 2px solid #085742;
+    border-radius: 14px;
+}
+
+div#summary-page > div#summary-page-buttons > button:hover {
+    background-color: #085742;
+    cursor: pointer;
+    color: white;
+    border-color: white;
+    border-width: 3px;
+}
+
+div#summary-page > div#summary-page-buttons > button:active {
+    background-color: #0a6d53;
 }

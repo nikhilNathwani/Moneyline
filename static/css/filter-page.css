@@ -1,5 +1,8 @@
 div#filter-page {
     background-color: #458A72;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
   
 div#filter-page > div#input-area {
