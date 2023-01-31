@@ -1,36 +1,47 @@
+
+/* ~~~~~~~~~~ PAGE ALL-UP ~~~~~~~~~~ */
+
 div#filter-page {
     background-color: #458A72;
     display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
     align-items: center;
-    text-align: center;
+    row-gap: 120px;
 }
+
+
+
+/* ~~~~~~~~~~ FILTER AREA ~~~~~~~~~~ */
   
-div#filter-page > div#input-area {
-    width: 1000px;
-    margin: auto;
-    font-size: 48px;
-    font-weight: bold;
-    color: white;
-}
-
-div#filter-page > div#input-area > div#filter-paragraph {
-    line-height: 108px;
-    margin-bottom: 80px;
-}
-
-div#filter-page > div#input-area > div#filter-paragraph > select {
-    font-size: 32px;
-    font-weight: bold;
-    height: 54px;
-    position: relative;
-    bottom: 10px;
-    color: #085742;
+div#filter-page > div#filter-area {
+    max-width: 1000px;
+    min-width: 700px;
     text-align: center;
+    color: white;
+    font-size: 64px;
+    font-weight: bold;
+    line-height: 120px;
+}
+
+div#filter-page > div#filter-area > div#filter-paragraph > select {
+    height: 54px;
     margin: 0 5px;
     padding: 0 12px;
+    position: relative;
+    bottom: 10px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #085742;
+    text-align: center;
 }
 
-div#filter-page > div#input-area > div#submit > button {
+
+
+/* ~~~~~~~~~~ BUTTON AREA ~~~~~~~~~~ */
+
+div#filter-page > div#submit-area > button {
+    margin: auto;
     height: 54px;
     width: 250px;
     font-family: 'Open Sans', sans-serif;
@@ -42,7 +53,7 @@ div#filter-page > div#input-area > div#submit > button {
     border-radius: 14px;
 }
 
-div#filter-page > div#input-area > div#submit > button:hover {
+div#filter-page > div#submit-area > button:hover {
     background-color: #085742;
     cursor: pointer;
     color: white;
@@ -50,6 +61,6 @@ div#filter-page > div#input-area > div#submit > button:hover {
     border-width: 3px;
 }
 
-div#filter-page > div#input-area > div#submit > button:active {
+div#filter-page > div#submit-area > button:active {
     background-color: #0a6d53;
 }
