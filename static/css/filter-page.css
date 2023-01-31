@@ -2,7 +2,7 @@
 /* ~~~~~~~~~~ PAGE ALL-UP ~~~~~~~~~~ */
 
 div#filter-page {
-    background-color: #458A72;
+    background-color: #085742;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -18,7 +18,7 @@ div#filter-page > div#filter-area {
     max-width: 1050px;
     min-width: 700px;
     text-align: center;
-    color: white;
+    color: #DDDDDD;
     font-size: 64px;
     font-weight: bold;
     line-height: 132px;
@@ -30,6 +30,7 @@ div#filter-page > div#filter-area > div#filter-paragraph > select {
     padding: 0 12px;
     position: relative;
     bottom: 9px;
+    background-color: #CAFBE8;
     font-size: 36px;
     font-weight: bold;
     color: #085742;
@@ -41,26 +42,25 @@ div#filter-page > div#filter-area > div#filter-paragraph > select {
 /* ~~~~~~~~~~ BUTTON AREA ~~~~~~~~~~ */
 
 div#filter-page > div#submit-area > button {
-    margin: auto;
     height: 54px;
     width: 250px;
     font-family: 'Open Sans', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    background-color: #CAFBE8;
+    background-color: white;
     color: #085742;
-    border: 2px solid #085742;
+    border: 2px solid #458A72;
     border-radius: 14px;
 }
 
 div#filter-page > div#submit-area > button:hover {
-    background-color: #085742;
+    background-color: #CAFBE8;
     cursor: pointer;
-    color: white;
-    border-color: white;
+    color: #085742;
+    border-color: #085742;
     border-width: 3px;
 }
 
 div#filter-page > div#submit-area > button:active {
-    background-color: #0a6d53;
+    background-color: #458A72;
 }

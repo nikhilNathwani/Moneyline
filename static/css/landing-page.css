@@ -1,5 +1,5 @@
 div#landing-page {
-  background-color: #085742; 
+  background-color: #458A72; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,12 +11,12 @@ div#landing-page > div#title-area {
 
 div#landing-page > div#title-area > h1 {
   font-size: 96px;
-  color: white;
+  color: #FFFFFF;
   margin-bottom: 32px;
 }
 
 div#landing-page > div#title-area > h2 {
   font-size: 32px;
-  color: #CAFBE8;
+  color: #DDDDDD;
   line-height: 50px;
 }

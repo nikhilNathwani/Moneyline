@@ -32,6 +32,7 @@ div#summary-page > div#total-profit-div > span {
 div#summary-page > div#total-profit-div > span#result-text {
     font-size: 96px;
     font-weight: bold;
+    border-radius: 14px;
 }
 
 
@@ -54,7 +55,7 @@ div#summary-page > div#summary-page-buttons > button {
     font-weight: bold;
     background-color: white;
     color: #085742;
-    border: 2px solid #085742;
+    border: 2px solid #458A72;
     border-radius: 14px;
 }
 
