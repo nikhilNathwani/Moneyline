@@ -2,7 +2,7 @@
 /* ~~~~~~~~~~ PAGE ALL-UP ~~~~~~~~~~ */
 
 div#summary-page {
-    background-color: #DDDDDD;
+    background-color: #085742;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -20,19 +20,20 @@ div#summary-page > div#total-profit-div {
     justify-content: center;
     align-items: center;
     text-align: center;
-    row-gap: 60px;
+    row-gap: 50px;
 }
 
 div#summary-page > div#total-profit-div > span {
     font-size: 64px;
     font-weight: bold;
-    color: #085742;
+    color: #DDDDDD;
 }
 
 div#summary-page > div#total-profit-div > span#result-text {
-    font-size: 96px;
+    padding: 16px;
+    background-color: #CAFBE8;
+    font-size: 72px;
     font-weight: bold;
-    border-radius: 14px;
 }
 
 
