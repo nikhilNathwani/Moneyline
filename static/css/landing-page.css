@@ -1,15 +1,18 @@
 div#landing-page {
   background-color: #085742; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div#landing-page > div#title-area {
-  margin: auto;
+  text-align: center;
 }
 
 div#landing-page > div#title-area > h1 {
-  font-size: 84px;
+  font-size: 96px;
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 
 div#landing-page > div#title-area > h2 {
