@@ -35,7 +35,7 @@ function makeTotalProfitUI(profit) {
   //Create the 'then you would have won' text, i.e. the "pre-text"
   const preText= document.createElement('span');
   preText.id = "pre-text";
-  preText.innerText = "...then your total profit would be";
+  preText.innerText = "...then you would've made";
   totalProfitDiv.appendChild(preText);
 
   //Create the '[+/-] [profit $ amount]' text, i.e. the "result-text"
