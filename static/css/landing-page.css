@@ -1,5 +1,5 @@
 div#landing-page {
-  background-color: #458A72; 
+  background-image: linear-gradient(#458A72,#085742); 
   display: flex;
   justify-content: center;
   align-items: center;
