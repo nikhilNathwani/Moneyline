@@ -1,5 +1,5 @@
 :root {
-	--green-dark: hsl(164, 83%, 19%);
+	--green-dark: hsl(164, 83%, 17%);
 	--green-mid: hsl(164, 43%, 64%);
 	--green-light: hsl(164, 43%, 89%);
 	--clr-background: lightgray;
@@ -17,6 +17,7 @@
 
 #app {
 	width: 100vw;
+	height: 100vh;
 	background-color: var(--clr-background);
 
 	display: flex;
@@ -24,12 +25,16 @@
 }
 
 #filter-area {
-	width: 100%;
-	height: min-content;
+	width: 40%;
+	height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	border-right: 2px solid var(--green-dark);
+	box-shadow: 10px 0 4px rgba(0, 0, 0, 0.3);
 }
 
 #filter-header {
-	background-color: var(--green-mid);
+	background-image: linear-gradient(var(--green-mid), var(--green-light));
 
 	display: flex;
 	flex-direction: column;
@@ -45,23 +50,25 @@ h1 {
 }
 
 h2 {
+	font-size: 1.25rem;
 	font-weight: 400;
 }
 
 #filter-paragraph {
+	flex-grow: 1;
 	width: 100%;
 	padding: 1rem;
 	background-color: var(--green-dark);
 
 	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
+	flex-flow: column nowrap;
+	align-items: left;
 	justify-content: center;
 	gap: 1.5rem;
 
 	font-size: 1.25rem;
 	/* font-weight: bold; */
-	color: var(--green-mid);
+	color: var(--green-light);
 }
 
 #filter-row {
