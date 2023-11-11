@@ -1,7 +1,7 @@
 :root {
-	--green-dark: hsl(164, 83%, 17%);
-	--green-mid: hsl(164, 43%, 64%);
-	--green-light: hsl(164, 43%, 89%);
+	--green-dark: hsl(200, 83%, 17%);
+	--green-mid: hsl(200, 43%, 64%);
+	--green-light: hsl(200, 43%, 89%);
 	--clr-background: lightgray;
 }
 
@@ -30,7 +30,7 @@
 	display: flex;
 	flex-flow: column nowrap;
 	border-right: 2px solid var(--green-dark);
-	box-shadow: 10px 0 4px rgba(0, 0, 0, 0.3);
+	box-shadow: 10px 0 6px rgba(0, 0, 0, 0.3);
 }
 
 #filter-header {
@@ -94,7 +94,7 @@ select {
 	/* position: relative;
 	bottom: 9px; */
 	width: 100%;
-	background-color: hsl(157, 70%, 89%);
+	background-color: var(--green-light);
 	font-size: 1.25rem;
 	font-weight: bold;
 	color: var(--green-dark);
