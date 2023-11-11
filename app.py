@@ -9,9 +9,9 @@ from flask import Flask, render_template, request, jsonify
 #winOdds
 #loseOdds
 
-app = Flask(__name__)
+moneyline_app = Flask(__name__)
 
-@app.route('/')
+@moneyline_app.route('/')
 def index():
   return render_template('index.html')
 
@@ -25,7 +25,7 @@ def getFilterValues():
     return {"bet":bet, "team":team, 
     "outcome":outcome, "seasonStartYear":seasonStartYear}    
 
-@app.route('/query')
+@moneyline_app.route('/query')
 def query_games():
     # Connect to the database
     conn = sqlite3.connect('data/moneyline.db')
@@ -51,4 +51,4 @@ def query_games():
 
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  moneyline_app.run(debug=True)
